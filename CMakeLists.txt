@@ -24,6 +24,7 @@ target_include_directories(glad PRIVATE ${PROJECT_SOURCE_DIR}/extern/glad/includ
 add_executable(
     ${PROJECT_NAME}
     main.cpp
+    src/App.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

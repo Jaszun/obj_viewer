@@ -1,5 +1,7 @@
 [Bb][Uu][Ii][Ll][Dd]
 
+.vscode
+
 #github/CMake.gitignore
 CMakeLists.txt.user
 CMakeCache.txt
