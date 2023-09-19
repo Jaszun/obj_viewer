@@ -25,6 +25,7 @@ add_executable(
     ${PROJECT_NAME}
     main.cpp
     src/App.cpp
+    src/Renderer.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
