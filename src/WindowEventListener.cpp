@@ -90,7 +90,11 @@ void WindowEventListener::OnDrop(int count, const char** paths)
 {
     isFileDropped = true;
 
-    // później ogarnę przekazywanie całej tablicy w jakiejś ludzkiej postaci
     DroppedFiles.count = count;
-    DroppedFiles.path = std::string{paths[count - 1]};
+    DroppedFiles.paths = new std::string[count];
+
+    for (int i = 0; i < count; i++)
+    {
+        DroppedFiles.paths[i] = paths[i];
+    }
 }

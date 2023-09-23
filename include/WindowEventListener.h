@@ -37,7 +37,7 @@ public:
     bool isFileDropped;
 
     // na razie wrzucę tutaj deklaracje struktur
-    // jeśli uznamy, że trzymanie danych w ten sposób nam odpowiada, wrzuciłbym deklaracje do folderu `types`
+    // jeśli uznamy, że trzymanie danych w ten sposób nam odpowiada, zrobimy to bardziej po ludzku
 
     struct
     {
@@ -48,14 +48,12 @@ public:
     // temp - do zweryfikowania po zaimplementowaniu
     struct
     {
-        int startX; // ?
-        int startY; // ?
     } Drag;
 
     struct
     {
         int count;
-        std::string path;
+        std::string* paths;
     } DroppedFiles;
 
     struct
