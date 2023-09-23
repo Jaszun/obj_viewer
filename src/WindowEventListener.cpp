@@ -1,35 +1,5 @@
 #include "WindowEventListener.h"
 
-//
-// Wszystko to jest tymczasowe rozwiązanie jakby co
-//
-
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
-{
-    WindowEventListener* listener = reinterpret_cast<WindowEventListener*>(glfwGetWindowUserPointer(window));
-
-    if (listener)
-        listener->OnScroll(xoffset, yoffset);
-}
-
-void drop_callback(GLFWwindow* window, int count, const char** paths)
-{
-    WindowEventListener* listener = reinterpret_cast<WindowEventListener*>(glfwGetWindowUserPointer(window));
-
-    if (listener)
-        listener->OnDrop(count, paths);
-}
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-    WindowEventListener* listener = reinterpret_cast<WindowEventListener*>(glfwGetWindowUserPointer(window));
-
-    if (listener)
-        listener->OnResize(width, height);
-}
-
-
-
 WindowEventListener::WindowEventListener(GLFWwindow* window) : windowHandle(window)
 {
 }
@@ -42,9 +12,32 @@ void WindowEventListener::Init()
 {
     glfwSetWindowUserPointer(windowHandle, this);
 
-    glfwSetFramebufferSizeCallback(windowHandle, framebuffer_size_callback);
-    glfwSetDropCallback(windowHandle, drop_callback);
-    glfwSetScrollCallback(windowHandle, scroll_callback);
+    // binding callbacks
+
+    glfwSetFramebufferSizeCallback(windowHandle, [](GLFWwindow* window, int width, int height)
+        {
+            WindowEventListener* listener = reinterpret_cast<WindowEventListener*>(glfwGetWindowUserPointer(window));
+
+            if (listener)
+                listener->OnResize(width, height);
+        }
+    );
+    glfwSetDropCallback(windowHandle, [](GLFWwindow* window, int count, const char** paths)
+        {
+            WindowEventListener* listener = reinterpret_cast<WindowEventListener*>(glfwGetWindowUserPointer(window));
+
+            if (listener)
+                listener->OnDrop(count, paths);
+        }
+    );
+    glfwSetScrollCallback(windowHandle, [](GLFWwindow* window, double xoffset, double yoffset)
+        {
+            WindowEventListener* listener = reinterpret_cast<WindowEventListener*>(glfwGetWindowUserPointer(window));
+
+            if (listener)
+                listener->OnScroll(xoffset, yoffset);
+        }
+    );
 }
 
 void WindowEventListener::resetEventBools()
@@ -89,8 +82,6 @@ void WindowEventListener::OnResize(int width, int height)
 
     Window.newWidth = width;
     Window.newHeight = height;
-
-    glViewport(0, 0, width, height);
 }
 
 // Misc listeners

@@ -24,8 +24,6 @@ void App::Init()
         glfwMakeContextCurrent(windowHandle);
         gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
 
-        // glfwSetWindowUserPointer(windowHandle, this);
-
         renderer = Renderer(windowHandle);
 
         eventListener = WindowEventListener(windowHandle);
@@ -78,8 +76,13 @@ void App::FetchInput()
 
     if (eventListener.isWindowResized)
     {
+        width = eventListener.Window.newWidth;
+        height = eventListener.Window.newHeight;
+
         std::cout << "The window has been resized\n";
-        std::cout << "New size: " << eventListener.Window.newWidth << "x" << eventListener.Window.newHeight << "\n";
+        std::cout << "New size: " << width << "x" << height << "\n";
+
+        glViewport(0, 0, width, height);
     }
 }
 
