@@ -4,22 +4,28 @@
 // Wszystko to jest tymczasowe rozwiązanie jakby co
 //
 
-// na razie callbacki, potem będzie można to fetchować jednak
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-    std::cout << "Scrolling " << xoffset << " " << yoffset << std::endl;
+    WindowEventListener* listener = reinterpret_cast<WindowEventListener*>(glfwGetWindowUserPointer(window));
+
+    if (listener)
+        listener->OnScroll(xoffset, yoffset);
 }
 
-void drop_callback(GLFWwindow* window, int count, const char** paths) {
-    for (int i = 0;  i < count;  i++)
-    {
-       std::cout << paths[i] << "\n";
-    }
+void drop_callback(GLFWwindow* window, int count, const char** paths)
+{
+    WindowEventListener* listener = reinterpret_cast<WindowEventListener*>(glfwGetWindowUserPointer(window));
+
+    if (listener)
+        listener->OnDrop(count, paths);
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-    glViewport(0, 0, width, height);
+    WindowEventListener* listener = reinterpret_cast<WindowEventListener*>(glfwGetWindowUserPointer(window));
+
+    if (listener)
+        listener->OnResize(width, height);
 }
 
 
@@ -32,40 +38,63 @@ WindowEventListener::~WindowEventListener()
 {
 }
 
+void WindowEventListener::Init()
+{
+    glfwSetWindowUserPointer(windowHandle, this);
+
+    glfwSetFramebufferSizeCallback(windowHandle, framebuffer_size_callback);
+    glfwSetDropCallback(windowHandle, drop_callback);
+    glfwSetScrollCallback(windowHandle, scroll_callback);
+}
+
+void WindowEventListener::resetEventBools()
+{
+    isScrolled = false;
+    isDragged = false;
+    isWindowResized = false;
+    isFileDropped = false;
+}
+
 // Events handling
 
 void WindowEventListener::PollEvents()
 {
-    glfwPollEvents();
+    resetEventBools();
 
-    OnScroll();
-    OnDrag();
-    OnResize();
-    OnDrop();
+    glfwPollEvents();
 }
 
 // Mouse listeners
 
-void WindowEventListener::OnScroll()
+void WindowEventListener::OnScroll(double xoffset, double yoffset)
 {
-    glfwSetScrollCallback(windowHandle, scroll_callback);
+    isScrolled = true;
 }
 
 void WindowEventListener::OnDrag()
 {
+    isDragged = true;
+
     // TODO
 }
 
 // Window listeners
 
-void WindowEventListener::OnResize()
+void WindowEventListener::OnResize(int width, int height)
 {
-    glfwSetFramebufferSizeCallback(windowHandle, framebuffer_size_callback);
+    isWindowResized = true;
+
+    glViewport(0, 0, width, height);
 }
 
 // Misc listeners
 
-void WindowEventListener::OnDrop()
+void WindowEventListener::OnDrop(int count, const char** paths)
 {
-    glfwSetDropCallback(windowHandle, drop_callback);
+    isFileDropped = true;
+
+    for (int i = 0;  i < count;  i++)
+    {
+       std::cout << paths[i] << "\n";
+    }
 }

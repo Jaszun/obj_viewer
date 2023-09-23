@@ -24,10 +24,12 @@ void App::Init()
         glfwMakeContextCurrent(windowHandle);
         gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
 
-        glfwSetWindowUserPointer(windowHandle, this);
+        // glfwSetWindowUserPointer(windowHandle, this);
 
         renderer = Renderer(windowHandle);
+
         eventListener = WindowEventListener(windowHandle);
+        eventListener.Init();
 
         isRunning = true;
     }
@@ -56,6 +58,26 @@ void App::Run()
 void App::FetchInput()
 {
     eventListener.PollEvents();
+
+    if (eventListener.isScrolled)
+    {
+        std::cout << "There's some scrolling here waiting to be handled\n";
+    }
+
+    if (eventListener.isDragged)
+    {
+        std::cout << "This is not even implemented yet\n";
+    }
+
+    if (eventListener.isFileDropped)
+    {
+        std::cout << "Someone's just dropped a file(s)\n";
+    }
+
+    if (eventListener.isWindowResized)
+    {
+        std::cout << "The window has been resized\n";
+    }
 }
 
 void App::Update()
