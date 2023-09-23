@@ -69,6 +69,9 @@ void WindowEventListener::PollEvents()
 void WindowEventListener::OnScroll(double xoffset, double yoffset)
 {
     isScrolled = true;
+
+    Scroll.xOffset = xoffset;
+    Scroll.yOffset = yoffset;
 }
 
 void WindowEventListener::OnDrag()
@@ -84,6 +87,9 @@ void WindowEventListener::OnResize(int width, int height)
 {
     isWindowResized = true;
 
+    Window.newWidth = width;
+    Window.newHeight = height;
+
     glViewport(0, 0, width, height);
 }
 
@@ -93,8 +99,7 @@ void WindowEventListener::OnDrop(int count, const char** paths)
 {
     isFileDropped = true;
 
-    for (int i = 0;  i < count;  i++)
-    {
-       std::cout << paths[i] << "\n";
-    }
+    // później ogarnę przekazywanie całej tablicy w jakiejś ludzkiej postaci
+    DroppedFiles.count = count;
+    DroppedFiles.path = std::string{paths[count - 1]};
 }

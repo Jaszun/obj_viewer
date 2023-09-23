@@ -35,4 +35,32 @@ public:
     bool isDragged;
     bool isWindowResized;
     bool isFileDropped;
+
+    // na razie wrzucę tutaj deklaracje struktur
+    // jeśli uznamy, że trzymanie danych w ten sposób nam odpowiada, wrzuciłbym deklaracje do folderu `types`
+
+    struct
+    {
+        double xOffset;
+        double yOffset;
+    } Scroll;
+
+    // temp - do zweryfikowania po zaimplementowaniu
+    struct
+    {
+        int startX; // ?
+        int startY; // ?
+    } Drag;
+
+    struct
+    {
+        int count;
+        std::string path;
+    } DroppedFiles;
+
+    struct
+    {
+        int newWidth;
+        int newHeight;
+    } Window;
 };

@@ -62,6 +62,7 @@ void App::FetchInput()
     if (eventListener.isScrolled)
     {
         std::cout << "There's some scrolling here waiting to be handled\n";
+        std::cout << "x offset: " << eventListener.Scroll.xOffset<< " y offset: " << eventListener.Scroll.yOffset << "\n";
     }
 
     if (eventListener.isDragged)
@@ -72,11 +73,13 @@ void App::FetchInput()
     if (eventListener.isFileDropped)
     {
         std::cout << "Someone's just dropped a file(s)\n";
+        std::cout << "Num of files: " << eventListener.DroppedFiles.count << " , Path: " << eventListener.DroppedFiles.path << "\n";
     }
 
     if (eventListener.isWindowResized)
     {
         std::cout << "The window has been resized\n";
+        std::cout << "New size: " << eventListener.Window.newWidth << "x" << eventListener.Window.newHeight << "\n";
     }
 }
 
