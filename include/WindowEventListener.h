@@ -9,6 +9,9 @@ class WindowEventListener // InputManager
 {
 private:
     GLFWwindow* windowHandle;
+
+    bool mRightMouseButtonPressed = false;
+    bool mLeftMouseButtonPressed = false;
     
     void resetEventBools();
 public:
@@ -23,7 +26,7 @@ public:
 
     // Mouse listeners
     void OnScroll(double xoffset, double yoffset);
-    void OnDrag();
+    void OnDrag(double xpos, double ypos);
 
     // Window listeners
     void OnResize(int width, int height);
@@ -48,6 +51,8 @@ public:
     // temp - do zweryfikowania po zaimplementowaniu
     struct
     {
+        double x;
+        double y;
     } Drag;
 
     struct

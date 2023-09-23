@@ -38,6 +38,43 @@ void WindowEventListener::Init()
                 listener->OnScroll(xoffset, yoffset);
         }
     );
+    glfwSetMouseButtonCallback(windowHandle, [](GLFWwindow* window, int button, int action, int mods)
+        {
+            WindowEventListener* listener = reinterpret_cast<WindowEventListener*>(glfwGetWindowUserPointer(window));
+
+            if (listener)
+            {
+                if (button == GLFW_MOUSE_BUTTON_LEFT)
+                {
+                    if (action == GLFW_PRESS)
+                        listener->mLeftMouseButtonPressed = true;
+                    else
+                        listener->mLeftMouseButtonPressed = false;
+                }
+
+                else if (button == GLFW_MOUSE_BUTTON_RIGHT)
+                {
+                    if (action == GLFW_PRESS)
+                        listener->mRightMouseButtonPressed = true;
+                    else
+                        listener->mRightMouseButtonPressed = false;
+                }
+            }
+        }
+    );
+    glfwSetCursorPosCallback(windowHandle, [](GLFWwindow* window, double xpos, double ypos)
+        {
+            WindowEventListener* listener = reinterpret_cast<WindowEventListener*>(glfwGetWindowUserPointer(window));
+
+            if (listener)
+            {
+                if (listener->mLeftMouseButtonPressed)
+                    listener->OnDrag(xpos, ypos); //TODO: OnLeftDrag
+                else if (listener->mRightMouseButtonPressed)
+                    listener->OnDrag(xpos, ypos); //TODO: OnRightDrag
+            }
+        }
+    );
 }
 
 void WindowEventListener::resetEventBools()
@@ -67,11 +104,17 @@ void WindowEventListener::OnScroll(double xoffset, double yoffset)
     Scroll.yOffset = yoffset;
 }
 
-void WindowEventListener::OnDrag()
+void WindowEventListener::OnDrag(double xpos, double ypos)
 {
+    //TODO: OnLeftDrag/OnRightDrag
+
     isDragged = true;
 
-    // TODO
+    //TODO:
+    // Myślę, że tutaj (podobnie jak przy scrollu) możnaby wyliczać offset kursora (względem pozycji przy kliknięciu) zamiast jego pozycji.
+    // Mam wrażenie, że wtedy łatwiej byłoby przy tym operować. Kwestia do przegadania.
+    Drag.x = xpos;
+    Drag.y = ypos;
 }
 
 // Window listeners

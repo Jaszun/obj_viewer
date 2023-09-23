@@ -65,7 +65,9 @@ void App::FetchInput()
 
     if (eventListener.isDragged)
     {
-        std::cout << "This is not even implemented yet\n";
+        std::cout << "This is not fully implemented yet\n";
+
+        std::cout << eventListener.Drag.x << " " << eventListener.Drag.y << "\n";
     }
 
     if (eventListener.isFileDropped)
