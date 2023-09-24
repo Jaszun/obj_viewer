@@ -5,6 +5,32 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+// na razie wrzucę tutaj deklaracje struktur
+
+struct Scroll
+{
+    double xOffset;
+    double yOffset;
+};
+
+struct Drag
+{
+    double xOffset;
+    double yOffset;
+};
+
+struct DroppedFiles
+{
+    int count;
+    std::string* paths;
+};
+
+struct Window
+{
+    int newWidth;
+    int newHeight;
+};
+
 class WindowEventListener // InputManager
 {
 private:
@@ -13,8 +39,15 @@ private:
     bool mRightMouseButtonPressed = false;
     bool mLeftMouseButtonPressed = false;
     
-    void resetEventBools();
+    void ResetEventBools();
 public:
+    bool isScrolled, isDragged, isWindowResized, isFileDropped;
+
+    Scroll scroll;
+    Drag dragStartPoint, dragCurrentPoint;
+    DroppedFiles droppedFiles;
+    Window window;
+
     WindowEventListener(GLFWwindow* windowHandle);
     ~WindowEventListener();
 
@@ -33,37 +66,4 @@ public:
 
     // Misc listeners
     void OnDrop(int count, const char** paths);
-
-    bool isScrolled;
-    bool isDragged;
-    bool isWindowResized;
-    bool isFileDropped;
-
-    // na razie wrzucę tutaj deklaracje struktur
-    // jeśli uznamy, że trzymanie danych w ten sposób nam odpowiada, zrobimy to bardziej po ludzku
-
-    struct
-    {
-        double xOffset;
-        double yOffset;
-    } Scroll;
-
-    // temp - do zweryfikowania po zaimplementowaniu
-    struct
-    {
-        double x;
-        double y;
-    } Drag;
-
-    struct
-    {
-        int count;
-        std::string* paths;
-    } DroppedFiles;
-
-    struct
-    {
-        int newWidth;
-        int newHeight;
-    } Window;
 };

@@ -44,8 +44,19 @@ void WindowEventListener::Init()
 
             if (listener)
             {
+                // if ()
+                // {
+                    
+                // }
                 if (button == GLFW_MOUSE_BUTTON_LEFT)
                 {
+                    double x, y;
+
+                    glfwGetCursorPos(window, &x, &y);
+
+                    listener->dragStartPoint.xOffset = x;
+                    listener->dragStartPoint.yOffset = y;
+
                     if (action == GLFW_PRESS)
                         listener->mLeftMouseButtonPressed = true;
                     else
@@ -77,7 +88,7 @@ void WindowEventListener::Init()
     );
 }
 
-void WindowEventListener::resetEventBools()
+void WindowEventListener::ResetEventBools()
 {
     isScrolled = false;
     isDragged = false;
@@ -89,7 +100,7 @@ void WindowEventListener::resetEventBools()
 
 void WindowEventListener::PollEvents()
 {
-    resetEventBools();
+    ResetEventBools();
 
     glfwPollEvents();
 }
@@ -100,8 +111,8 @@ void WindowEventListener::OnScroll(double xoffset, double yoffset)
 {
     isScrolled = true;
 
-    Scroll.xOffset = xoffset;
-    Scroll.yOffset = yoffset;
+    scroll.xOffset = xoffset;
+    scroll.yOffset = yoffset;
 }
 
 void WindowEventListener::OnDrag(double xpos, double ypos)
@@ -110,11 +121,8 @@ void WindowEventListener::OnDrag(double xpos, double ypos)
 
     isDragged = true;
 
-    //TODO:
-    // Myślę, że tutaj (podobnie jak przy scrollu) możnaby wyliczać offset kursora (względem pozycji przy kliknięciu) zamiast jego pozycji.
-    // Mam wrażenie, że wtedy łatwiej byłoby przy tym operować. Kwestia do przegadania.
-    Drag.x = xpos;
-    Drag.y = ypos;
+    dragCurrentPoint.xOffset = xpos - dragStartPoint.xOffset;
+    dragCurrentPoint.yOffset = dragStartPoint.yOffset - ypos;
 }
 
 // Window listeners
@@ -123,8 +131,8 @@ void WindowEventListener::OnResize(int width, int height)
 {
     isWindowResized = true;
 
-    Window.newWidth = width;
-    Window.newHeight = height;
+    window.newWidth = width;
+    window.newHeight = height;
 }
 
 // Misc listeners
@@ -133,11 +141,11 @@ void WindowEventListener::OnDrop(int count, const char** paths)
 {
     isFileDropped = true;
 
-    DroppedFiles.count = count;
-    DroppedFiles.paths = new std::string[count];
+    droppedFiles.count = count;
+    droppedFiles.paths = new std::string[count];
 
     for (int i = 0; i < count; i++)
     {
-        DroppedFiles.paths[i] = paths[i];
+        droppedFiles.paths[i] = paths[i];
     }
 }

@@ -60,30 +60,30 @@ void App::FetchInput()
     if (eventListener.isScrolled)
     {
         std::cout << "There's some scrolling here waiting to be handled\n";
-        std::cout << "x offset: " << eventListener.Scroll.xOffset << " y offset: " << eventListener.Scroll.yOffset << "\n";
+        std::cout << "x offset: " << eventListener.scroll.xOffset << " y offset: " << eventListener.scroll.yOffset << "\n";
     }
 
     if (eventListener.isDragged)
     {
         std::cout << "This is not fully implemented yet\n";
 
-        std::cout << eventListener.Drag.x << " " << eventListener.Drag.y << "\n";
+        std::cout << eventListener.dragCurrentPoint.xOffset << " " << eventListener.dragCurrentPoint.yOffset << "\n";
     }
 
     if (eventListener.isFileDropped)
     {
         std::cout << "Someone's just dropped a file(s)\n";
-        std::cout << "Num of files: " << eventListener.DroppedFiles.count << ", Paths:\n";
+        std::cout << "Num of files: " << eventListener.droppedFiles.count << ", Paths:\n";
         
-        for (int i = 0; i < eventListener.DroppedFiles.count; i++) {
-            std::cout << i + 1 << ". " << eventListener.DroppedFiles.paths[i] << "\n";
+        for (int i = 0; i < eventListener.droppedFiles.count; i++) {
+            std::cout << i + 1 << ". " << eventListener.droppedFiles.paths[i] << "\n";
         }
     }
 
     if (eventListener.isWindowResized)
     {
-        width = eventListener.Window.newWidth;
-        height = eventListener.Window.newHeight;
+        width = eventListener.window.newWidth;
+        height = eventListener.window.newHeight;
 
         std::cout << "The window has been resized\n";
         std::cout << "New size: " << width << "x" << height << "\n";
