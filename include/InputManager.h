@@ -31,7 +31,7 @@ struct Window
     int newHeight;
 };
 
-class WindowEventListener // InputManager
+class InputManager
 {
 private:
     GLFWwindow* windowHandle;
@@ -48,8 +48,8 @@ public:
     DroppedFiles droppedFiles;
     Window window;
 
-    WindowEventListener(GLFWwindow* windowHandle);
-    ~WindowEventListener();
+    InputManager(GLFWwindow* windowHandle);
+    ~InputManager();
 
     void Init();
 

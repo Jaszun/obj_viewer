@@ -6,14 +6,14 @@
 #include <GLFW/glfw3.h>
 
 #include "Renderer.h"
-#include "WindowEventListener.h"
+#include "InputManager.h"
 
 class App
 {
 private:
     // 3DObject m_Object;
     Renderer renderer = nullptr; // <- idk chyba powinno się jakoś inaczej
-    WindowEventListener eventListener = nullptr;
+    InputManager inputManager = nullptr;
 
     std::string appName;
 

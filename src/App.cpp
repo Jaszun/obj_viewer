@@ -26,8 +26,8 @@ void App::Init()
 
         renderer = Renderer(windowHandle);
 
-        eventListener = WindowEventListener(windowHandle);
-        eventListener.Init();
+        inputManager = InputManager(windowHandle);
+        inputManager.Init();
 
         isRunning = true;
     }
@@ -55,40 +55,40 @@ void App::Run()
 
 void App::FetchInput()
 {
-    eventListener.PollEvents();
+    inputManager.PollEvents();
 
-    if (eventListener.isScrolled)
+    if (inputManager.isScrolled)
     {
         std::cout << "There's some scrolling here waiting to be handled\n";
-        std::cout << "x offset: " << eventListener.scroll.xOffset << " y offset: " << eventListener.scroll.yOffset << "\n";
+        std::cout << "x offset: " << inputManager.scroll.xOffset << " y offset: " << inputManager.scroll.yOffset << "\n";
     }
 
-    if (eventListener.isLeftDragged)
+    if (inputManager.isLeftDragged)
     {
         std::cout << "Dragged with LEFT mouse button\n";
-        std::cout << eventListener.dragCurrentPoint.xOffset << " " << eventListener.dragCurrentPoint.yOffset << "\n";
+        std::cout << inputManager.dragCurrentPoint.xOffset << " " << inputManager.dragCurrentPoint.yOffset << "\n";
     }
 
-    if (eventListener.isRightDragged)
+    if (inputManager.isRightDragged)
     {
         std::cout << "Dragged with RIGHT mouse button\n";
-        std::cout << eventListener.dragCurrentPoint.xOffset << " " << eventListener.dragCurrentPoint.yOffset << "\n";
+        std::cout << inputManager.dragCurrentPoint.xOffset << " " << inputManager.dragCurrentPoint.yOffset << "\n";
     }
 
-    if (eventListener.isFileDropped)
+    if (inputManager.isFileDropped)
     {
         std::cout << "Someone's just dropped a file(s)\n";
-        std::cout << "Num of files: " << eventListener.droppedFiles.count << ", Paths:\n";
+        std::cout << "Num of files: " << inputManager.droppedFiles.count << ", Paths:\n";
         
-        for (int i = 0; i < eventListener.droppedFiles.count; i++) {
-            std::cout << i + 1 << ". " << eventListener.droppedFiles.paths[i] << "\n";
+        for (int i = 0; i < inputManager.droppedFiles.count; i++) {
+            std::cout << i + 1 << ". " << inputManager.droppedFiles.paths[i] << "\n";
         }
     }
 
-    if (eventListener.isWindowResized)
+    if (inputManager.isWindowResized)
     {
-        width = eventListener.window.newWidth;
-        height = eventListener.window.newHeight;
+        width = inputManager.window.newWidth;
+        height = inputManager.window.newHeight;
 
         std::cout << "The window has been resized\n";
         std::cout << "New size: " << width << "x" << height << "\n";

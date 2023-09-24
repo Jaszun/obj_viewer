@@ -26,7 +26,7 @@ add_executable(
     main.cpp
     src/App.cpp
     src/Renderer.cpp
-    src/WindowEventListener.cpp
+    src/InputManager.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
