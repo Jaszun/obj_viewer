@@ -63,10 +63,15 @@ void App::FetchInput()
         std::cout << "x offset: " << eventListener.scroll.xOffset << " y offset: " << eventListener.scroll.yOffset << "\n";
     }
 
-    if (eventListener.isDragged)
+    if (eventListener.isLeftDragged)
     {
-        std::cout << "This is not fully implemented yet\n";
+        std::cout << "Dragged with LEFT mouse button\n";
+        std::cout << eventListener.dragCurrentPoint.xOffset << " " << eventListener.dragCurrentPoint.yOffset << "\n";
+    }
 
+    if (eventListener.isRightDragged)
+    {
+        std::cout << "Dragged with RIGHT mouse button\n";
         std::cout << eventListener.dragCurrentPoint.xOffset << " " << eventListener.dragCurrentPoint.yOffset << "\n";
     }
 

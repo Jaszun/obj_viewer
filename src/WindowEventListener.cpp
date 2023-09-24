@@ -44,30 +44,31 @@ void WindowEventListener::Init()
 
             if (listener)
             {
-                // if ()
-                // {
-                    
-                // }
-                if (button == GLFW_MOUSE_BUTTON_LEFT)
+                if (action == GLFW_PRESS)
                 {
-                    double x, y;
+                    if (!listener->mLeftMouseButtonPressed && !listener->mRightMouseButtonPressed)
+                    {
+                        double x, y;
 
-                    glfwGetCursorPos(window, &x, &y);
+                        glfwGetCursorPos(window, &x, &y);
 
-                    listener->dragStartPoint.xOffset = x;
-                    listener->dragStartPoint.yOffset = y;
+                        listener->dragStartPoint.xOffset = x;
+                        listener->dragStartPoint.yOffset = y;
+                    }
 
-                    if (action == GLFW_PRESS)
+                    if (button == GLFW_MOUSE_BUTTON_LEFT && !listener->mRightMouseButtonPressed)
                         listener->mLeftMouseButtonPressed = true;
-                    else
-                        listener->mLeftMouseButtonPressed = false;
+
+                    else if (button == GLFW_MOUSE_BUTTON_RIGHT && !listener->mLeftMouseButtonPressed)
+                        listener->mRightMouseButtonPressed = true;
                 }
 
-                else if (button == GLFW_MOUSE_BUTTON_RIGHT)
+                else
                 {
-                    if (action == GLFW_PRESS)
-                        listener->mRightMouseButtonPressed = true;
-                    else
+                    if (button == GLFW_MOUSE_BUTTON_LEFT)
+                        listener->mLeftMouseButtonPressed = false;
+
+                    else if (button == GLFW_MOUSE_BUTTON_RIGHT)
                         listener->mRightMouseButtonPressed = false;
                 }
             }
@@ -79,10 +80,8 @@ void WindowEventListener::Init()
 
             if (listener)
             {
-                if (listener->mLeftMouseButtonPressed)
-                    listener->OnDrag(xpos, ypos); //TODO: OnLeftDrag
-                else if (listener->mRightMouseButtonPressed)
-                    listener->OnDrag(xpos, ypos); //TODO: OnRightDrag
+                if (listener->mLeftMouseButtonPressed || listener->mRightMouseButtonPressed)
+                    listener->OnDrag(xpos, ypos);
             }
         }
     );
@@ -90,10 +89,7 @@ void WindowEventListener::Init()
 
 void WindowEventListener::ResetEventBools()
 {
-    isScrolled = false;
-    isDragged = false;
-    isWindowResized = false;
-    isFileDropped = false;
+    isScrolled = isLeftDragged = isRightDragged = isWindowResized = isFileDropped = false;
 }
 
 // Events handling
@@ -117,9 +113,10 @@ void WindowEventListener::OnScroll(double xoffset, double yoffset)
 
 void WindowEventListener::OnDrag(double xpos, double ypos)
 {
-    //TODO: OnLeftDrag/OnRightDrag
-
-    isDragged = true;
+    if (mLeftMouseButtonPressed)
+        isLeftDragged = true;
+    else
+        isRightDragged = true;
 
     dragCurrentPoint.xOffset = xpos - dragStartPoint.xOffset;
     dragCurrentPoint.yOffset = dragStartPoint.yOffset - ypos;

@@ -41,7 +41,7 @@ private:
     
     void ResetEventBools();
 public:
-    bool isScrolled, isDragged, isWindowResized, isFileDropped;
+    bool isScrolled, isLeftDragged, isRightDragged, isWindowResized, isFileDropped;
 
     Scroll scroll;
     Drag dragStartPoint, dragCurrentPoint;
