@@ -5,8 +5,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-// na razie wrzucę tutaj deklaracje struktur
-
 struct Scroll
 {
     double xOffset;
