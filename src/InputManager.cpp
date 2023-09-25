@@ -14,77 +14,11 @@ void InputManager::Init()
 
     // binding callbacks
 
-    glfwSetFramebufferSizeCallback(windowHandle, [](GLFWwindow* window, int width, int height)
-        {
-            InputManager* manager = reinterpret_cast<InputManager*>(glfwGetWindowUserPointer(window));
-
-            if (manager)
-                manager->OnResize(width, height);
-        }
-    );
-    glfwSetDropCallback(windowHandle, [](GLFWwindow* window, int count, const char** paths)
-        {
-            InputManager* manager = reinterpret_cast<InputManager*>(glfwGetWindowUserPointer(window));
-
-            if (manager)
-                manager->OnDrop(count, paths);
-        }
-    );
-    glfwSetScrollCallback(windowHandle, [](GLFWwindow* window, double xoffset, double yoffset)
-        {
-            InputManager* manager = reinterpret_cast<InputManager*>(glfwGetWindowUserPointer(window));
-
-            if (manager)
-                manager->OnScroll(xoffset, yoffset);
-        }
-    );
-    glfwSetMouseButtonCallback(windowHandle, [](GLFWwindow* window, int button, int action, int mods)
-        {
-            InputManager* manager = reinterpret_cast<InputManager*>(glfwGetWindowUserPointer(window));
-
-            if (manager)
-            {
-                if (action == GLFW_PRESS)
-                {
-                    if (!manager->mLeftMouseButtonPressed && !manager->mRightMouseButtonPressed)
-                    {
-                        double x, y;
-
-                        glfwGetCursorPos(window, &x, &y);
-
-                        manager->dragStartPoint.xOffset = x;
-                        manager->dragStartPoint.yOffset = y;
-                    }
-
-                    if (button == GLFW_MOUSE_BUTTON_LEFT && !manager->mRightMouseButtonPressed)
-                        manager->mLeftMouseButtonPressed = true;
-
-                    else if (button == GLFW_MOUSE_BUTTON_RIGHT && !manager->mLeftMouseButtonPressed)
-                        manager->mRightMouseButtonPressed = true;
-                }
-
-                else
-                {
-                    if (button == GLFW_MOUSE_BUTTON_LEFT)
-                        manager->mLeftMouseButtonPressed = false;
-
-                    else if (button == GLFW_MOUSE_BUTTON_RIGHT)
-                        manager->mRightMouseButtonPressed = false;
-                }
-            }
-        }
-    );
-    glfwSetCursorPosCallback(windowHandle, [](GLFWwindow* window, double xpos, double ypos)
-        {
-            InputManager* manager = reinterpret_cast<InputManager*>(glfwGetWindowUserPointer(window));
-
-            if (manager)
-            {
-                if (manager->mLeftMouseButtonPressed || manager->mRightMouseButtonPressed)
-                    manager->OnDrag(xpos, ypos);
-            }
-        }
-    );
+    glfwSetFramebufferSizeCallback(windowHandle, resize_callback);
+    glfwSetDropCallback(windowHandle, drop_callback);
+    glfwSetScrollCallback(windowHandle, scroll_callback);
+    glfwSetMouseButtonCallback(windowHandle, mouse_button_callback);
+    glfwSetCursorPosCallback(windowHandle, cursor_pos_callback);
 }
 
 void InputManager::ResetEventBools()
@@ -145,4 +79,75 @@ void InputManager::OnDrop(int count, const char** paths)
     {
         droppedFiles.paths[i] = paths[i];
     }
+}
+
+// Callback functions
+
+void InputManager::cursor_pos_callback(GLFWwindow* window, double xpos, double ypos)
+{
+    InputManager* manager = reinterpret_cast<InputManager*>(glfwGetWindowUserPointer(window));
+
+    if (manager)
+        if (manager->mLeftMouseButtonPressed || manager->mRightMouseButtonPressed)
+            manager->OnDrag(xpos, ypos);
+}
+
+void InputManager::mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+    InputManager* manager = reinterpret_cast<InputManager*>(glfwGetWindowUserPointer(window));
+
+    if (manager)
+    {
+        if (action == GLFW_PRESS)
+        {
+            if (!manager->mLeftMouseButtonPressed && !manager->mRightMouseButtonPressed)
+            {
+                double x, y;
+
+                glfwGetCursorPos(window, &x, &y);
+
+                manager->dragStartPoint.xOffset = x;
+                manager->dragStartPoint.yOffset = y;
+            }
+
+            if (button == GLFW_MOUSE_BUTTON_LEFT && !manager->mRightMouseButtonPressed)
+                manager->mLeftMouseButtonPressed = true;
+
+            else if (button == GLFW_MOUSE_BUTTON_RIGHT && !manager->mLeftMouseButtonPressed)
+                manager->mRightMouseButtonPressed = true;
+        }
+
+        else
+        {
+            if (button == GLFW_MOUSE_BUTTON_LEFT)
+                manager->mLeftMouseButtonPressed = false;
+
+            else if (button == GLFW_MOUSE_BUTTON_RIGHT)
+                manager->mRightMouseButtonPressed = false;
+        }
+    }
+}
+
+void InputManager::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+    InputManager* manager = reinterpret_cast<InputManager*>(glfwGetWindowUserPointer(window));
+
+    if (manager)
+        manager->OnScroll(xoffset, yoffset);
+}
+
+void InputManager::drop_callback(GLFWwindow* window, int count, const char** paths)
+{
+    InputManager* manager = reinterpret_cast<InputManager*>(glfwGetWindowUserPointer(window));
+
+    if (manager)
+        manager->OnDrop(count, paths);
+}
+
+void InputManager::resize_callback(GLFWwindow* window, int width, int height)
+{
+    InputManager* manager = reinterpret_cast<InputManager*>(glfwGetWindowUserPointer(window));
+
+    if (manager)
+        manager->OnResize(width, height);
 }
