@@ -1,18 +1,5 @@
 #include "App.h"
 
-// na razie callbacki, potem będzie można to fetchować jednak
-void drop_callback(GLFWwindow* window, int count, const char** paths) {
-    for (int i = 0;  i < count;  i++)
-    {
-       ((App*) glfwGetWindowUserPointer(window))->HandlePath(paths[i]);
-    }
-}
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-    glViewport(0, 0, width, height);
-}  
-
 App::App(int width, int height, std::string appName) : width(width), height(height), appName(appName) 
 {
     
@@ -27,8 +14,6 @@ App::~App()
 
 void App::Init()
 {
-    // m_Renderer.init();
-
     // initialize glfw and try to create a window
     if (glfwInit())
         windowHandle = glfwCreateWindow(width, height, appName.c_str(), NULL, NULL);
@@ -39,14 +24,13 @@ void App::Init()
         glfwMakeContextCurrent(windowHandle);
         gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
 
-        glfwSetWindowUserPointer(windowHandle, this);
-        glfwSetDropCallback(windowHandle, drop_callback);
-        glfwSetFramebufferSizeCallback(windowHandle, framebuffer_size_callback);
         renderer = Renderer(windowHandle);
+
+        inputManager = InputManager(windowHandle);
+        inputManager.Init();
 
         isRunning = true;
     }
-
 
     std::cout << "App " << appName << " works!" << '\n';
 }
@@ -65,18 +49,52 @@ void App::Run()
 
         glfwSwapBuffers(windowHandle);
     }
+
     std::cout << "Run function ended!" << '\n';
 }
 
 void App::FetchInput()
 {
-    glfwPollEvents();
-    // std::cout << "Fetching..." << '\n';
-}
+    inputManager.PollEvents();
 
-void App::HandlePath(const char* path)
-{
-    std::cout << path << "\n";
+    if (inputManager.isScrolled)
+    {
+        std::cout << "There's some scrolling here waiting to be handled\n";
+        std::cout << "x offset: " << inputManager.scroll.xOffset << " y offset: " << inputManager.scroll.yOffset << "\n";
+    }
+
+    if (inputManager.isLeftDragged)
+    {
+        std::cout << "Dragged with LEFT mouse button\n";
+        std::cout << inputManager.dragCurrentPoint.xOffset << " " << inputManager.dragCurrentPoint.yOffset << "\n";
+    }
+
+    if (inputManager.isRightDragged)
+    {
+        std::cout << "Dragged with RIGHT mouse button\n";
+        std::cout << inputManager.dragCurrentPoint.xOffset << " " << inputManager.dragCurrentPoint.yOffset << "\n";
+    }
+
+    if (inputManager.isFileDropped)
+    {
+        std::cout << "Someone's just dropped a file(s)\n";
+        std::cout << "Num of files: " << inputManager.droppedFiles.count << ", Paths:\n";
+        
+        for (int i = 0; i < inputManager.droppedFiles.count; i++) {
+            std::cout << i + 1 << ". " << inputManager.droppedFiles.paths[i] << "\n";
+        }
+    }
+
+    if (inputManager.isWindowResized)
+    {
+        width = inputManager.window.newWidth;
+        height = inputManager.window.newHeight;
+
+        std::cout << "The window has been resized\n";
+        std::cout << "New size: " << width << "x" << height << "\n";
+
+        glViewport(0, 0, width, height);
+    }
 }
 
 void App::Update()
@@ -87,7 +105,4 @@ void App::Update()
 void App::Render()
 {
     renderer.Draw(timeElapsed);
-    // std::cout << "Rendering..." << '\n';
-
-    // isRunning = false;
 }

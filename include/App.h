@@ -6,12 +6,14 @@
 #include <GLFW/glfw3.h>
 
 #include "Renderer.h"
+#include "InputManager.h"
 
 class App
 {
 private:
     // 3DObject m_Object;
     Renderer renderer = nullptr; // <- idk chyba powinno się jakoś inaczej
+    InputManager inputManager = nullptr;
 
     std::string appName;
 
@@ -34,5 +36,4 @@ public:
     ~App();
 
     void Run();
-    void HandlePath(const char* path);
 };
