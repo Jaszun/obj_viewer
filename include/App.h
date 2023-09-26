@@ -7,6 +7,7 @@
 
 #include "Renderer.h"
 #include "InputManager.h"
+#include "FileReader.h"
 
 class App
 {
@@ -14,6 +15,7 @@ private:
     // 3DObject m_Object;
     Renderer renderer = nullptr; // <- idk chyba powinno się jakoś inaczej
     InputManager inputManager = nullptr;
+    FileReader fileReader;
 
     std::string appName;
 
