@@ -38,7 +38,7 @@ Node* getNodeBySymbol(std::string symbol)
     // std::cout << symbol << "\n";
 
     if (symbol == "v" || symbol == "vn" || symbol == "vt")
-        return new DoubleArrayNode();
+        return new DoubleVectorNode();
     
     return new StringNode();
 }

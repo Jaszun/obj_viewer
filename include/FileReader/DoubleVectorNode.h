@@ -5,10 +5,10 @@
 
 #include "Node.h"
 
-class DoubleArrayNode : public Node
+class DoubleVectorNode : public Node
 {
 public:
-    DoubleArrayNode() : Node(){};
+    DoubleVectorNode() : Node(){};
 
     void handleData(std::vector<std::string> splittedLine);
 };

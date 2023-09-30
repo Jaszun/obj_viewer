@@ -1,6 +1,6 @@
-#include "file_reader_types/DoubleArrayNode.h"
+#include "FileReader/DoubleVectorNode.h"
 
-void DoubleArrayNode::handleData(std::vector<std::string> splittedLine)
+void DoubleVectorNode::handleData(std::vector<std::string> splittedLine)
 {
     std::cout << "double\n";
 

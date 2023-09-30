@@ -5,9 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "file_reader_types/Node.h"
-#include "file_reader_types/DoubleArrayNode.h"
-#include "file_reader_types/StringNode.h"
+#include "FileReader/index.h"
 
 class FileReader
 {

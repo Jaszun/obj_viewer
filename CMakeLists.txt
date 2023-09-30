@@ -28,8 +28,8 @@ add_executable(
     src/Renderer.cpp
     src/InputManager.cpp
     src/FileReader.cpp
-    src/file_reader_types/DoubleArrayNode.cpp
-    src/file_reader_types/StringNode.cpp
+    src/FileReader/DoubleVectorNode.cpp
+    src/FileReader/StringNode.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
