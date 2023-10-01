@@ -31,6 +31,7 @@ add_executable(
     src/FileReader/Nodes/Node.cpp
     src/FileReader/Nodes/DoubleVectorNode.cpp
     src/FileReader/Nodes/StringNode.cpp
+    src/FileReader/FileManager/FileManager.cpp
     src/FileReader/FileManager/ObjFileManager.cpp
 )
 

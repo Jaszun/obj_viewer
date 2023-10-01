@@ -1,10 +1,9 @@
 #pragma once
 
 #include <iostream>
-#include <algorithm>
 
 #include "FileManager.h"
-#include "FileReader/Nodes/index.h"
+#include "FileReader/Nodes/Node.h"
 
 class ObjFileManager: public FileManager
 {

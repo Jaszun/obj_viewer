@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 #include "FileReader/Nodes/index.h"
 
@@ -13,5 +14,6 @@ public:
     FileManager(){};
 
     virtual void Init() = 0;
-    virtual Node* GetNodeBySymbol(std::string symbol) = 0;
+
+    Node* GetNodeBySymbol(std::string symbol);
 };
