@@ -10,8 +10,7 @@ class DoubleVectorNode : public Node
 public:
     std::vector<double> data;
 
-    DoubleVectorNode() : Node(){};
     DoubleVectorNode(std::vector<std::string> symbols) : Node(symbols){this->symbols = symbols;};
 
-    void handleData(std::vector<std::string> splittedLine);
+    void HandleData(std::vector<std::string> splittedLine);
 };

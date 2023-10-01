@@ -69,6 +69,8 @@ void FileReader::ReadFile(std::string path)
         std::string prevSymbol = "";
         std::string line;
 
+        std::cout << "Loading file...\n";
+
         while (std::getline(file, line))
         {
             if (line.length() > 0)
@@ -84,17 +86,19 @@ void FileReader::ReadFile(std::string path)
 
                     if (node)
                     {
-                        node->handleData(splittedLine);
+                        node->HandleData(splittedLine);
                         manager->SaveNodeData(symbol, node);
                     }
 
-                    else
-                        std::cout << "Nie rozpoznano symbolu: " << symbol << "\n";
+                    // else
+                    //     std::cout << "Nieobsluzony symbol: " << symbol << "\n";
                 }
 
                 prevSymbol = symbol;
             }
         }
+
+        std::cout << "Finished loading!\n";
         
         delete node;
 
