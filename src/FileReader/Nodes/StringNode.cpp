@@ -1,4 +1,4 @@
-#include "FileReader/StringNode.h"
+#include "FileReader/Nodes/StringNode.h"
 
 void StringNode::handleData(std::vector<std::string> splittedLine)
 {

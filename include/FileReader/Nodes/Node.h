@@ -6,9 +6,10 @@
 class Node
 {
 public:
-    std::string* symbols;
+    std::vector<std::string> symbols;
 
-    Node(){};
+    Node();
+    Node(std::vector<std::string> symbols);
 
     virtual void handleData(std::vector<std::string> splittedLine) = 0;
 };

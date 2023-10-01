@@ -1,4 +1,4 @@
-#include "FileReader/DoubleVectorNode.h"
+#include "FileReader/Nodes/DoubleVectorNode.h"
 
 void DoubleVectorNode::handleData(std::vector<std::string> splittedLine)
 {

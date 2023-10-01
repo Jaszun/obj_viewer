@@ -16,7 +16,7 @@ std::vector<std::string> FileReader::SplitLine(std::string line, char separator)
 
     int index = 0;
    
-    for(int i = 0; i < line.length(); i++)
+    for (int i = 0; i < line.length(); i++)
     {
         if (line[i] != separator)
             temp += line[i];
@@ -33,33 +33,43 @@ std::vector<std::string> FileReader::SplitLine(std::string line, char separator)
     return splittedLine;
 }
 
-Node* getNodeBySymbol(std::string symbol)
+FileManager* FileReader::GetFileManager(std::string path)
 {
-    // std::cout << symbol << "\n";
+    std::string fileExtension = path.substr(path.find_last_of('.') + 1);
 
-    if (symbol == "v" || symbol == "vn" || symbol == "vt")
-        return new DoubleVectorNode();
+    if (fileExtension == "obj")
+        return new ObjFileManager();
+    // if (fileExtension == "mtl")
+    //     return new MtlFileManager();
+    // ...
     
-    return new StringNode();
+    return nullptr;
 }
 
 void FileReader::ReadFile(std::string path)
 {
+    FileManager* manager = GetFileManager(path);
+
+    if (!manager)
+    {
+        std::cout << "Nie rozpoznano pliku\n";
+        return;
+    }
+
+    manager->Init();
+
     std::ifstream file;
     
     file.open(path);
 
-    if(file.is_open())
+    if (file.is_open())
     {
-        // create manager for file type
-
-        std::string line;
-
-        std::string prevSymbol = "";
-
         Node* node;
 
-        while(std::getline(file, line))
+        std::string prevSymbol = "";
+        std::string line;
+
+        while (std::getline(file, line))
         {
             if (line.length() > 0)
             {
@@ -70,9 +80,12 @@ void FileReader::ReadFile(std::string path)
                 if (symbol != "#")
                 {
                     if (symbol != prevSymbol)
-                        node = getNodeBySymbol(symbol);
+                        node = manager->GetNodeBySymbol(symbol);
 
-                    node->handleData(splittedLine);
+                    if (node)
+                        node->handleData(splittedLine);
+                    else
+                        std::cout << "Nie rozpoznano symbolu: " << symbol << "\n";
                 }
 
                 prevSymbol = symbol;

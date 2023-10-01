@@ -5,13 +5,15 @@
 #include <string>
 #include <vector>
 
-#include "FileReader/index.h"
+#include "FileReader/Nodes/index.h"
+#include "FileReader/FileManager/index.h"
 
 class FileReader
 {
 private:
     std::vector<std::string> SplitLine(std::string line, char separator);
 
+    FileManager* GetFileManager(std::string path);
 public:
     FileReader();
     ~FileReader();
