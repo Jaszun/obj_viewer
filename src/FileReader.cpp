@@ -83,7 +83,11 @@ void FileReader::ReadFile(std::string path)
                         node = manager->GetNodeBySymbol(symbol);
 
                     if (node)
+                    {
                         node->handleData(splittedLine);
+                        manager->SaveNodeData(symbol, node);
+                    }
+
                     else
                         std::cout << "Nie rozpoznano symbolu: " << symbol << "\n";
                 }
@@ -96,4 +100,6 @@ void FileReader::ReadFile(std::string path)
 
         file.close();
     }
+
+    manager->InterpretData();
 }

@@ -5,4 +5,6 @@ void StringNode::handleData(std::vector<std::string> splittedLine)
     std::cout << "string\n";
 
     std::cout << splittedLine.at(1) << "\n";
+
+    data = splittedLine.at(1);
 }

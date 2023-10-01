@@ -4,12 +4,14 @@ void DoubleVectorNode::handleData(std::vector<std::string> splittedLine)
 {
     std::cout << "double\n";
 
-    std::vector<double> doubleArray;
+    std::vector<double> doubleVector;
 
     for (int i = 1; i < splittedLine.size(); i++)
     {
-        doubleArray.push_back(std::stod(splittedLine.at(i)));
+        doubleVector.push_back(std::stod(splittedLine.at(i)));
 
-        std::cout << doubleArray.at(i - 1) << "\n";
+        std::cout << doubleVector.at(i - 1) << "\n";
     }
+
+    data = doubleVector;
 }
