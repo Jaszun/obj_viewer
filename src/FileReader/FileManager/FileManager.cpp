@@ -1,12 +1,12 @@
 #include "FileReader/FileManager/FileManager.h"
 
-Node* FileManager::GetNodeBySymbol(std::string symbol)
+Node* FileManager::GetNodeByToken(std::string token)
 {
     for (int i = 0; i < nodes.size(); i++)
     {
-        std::vector<std::string> symbols = nodes.at(i)->symbols;
+        std::vector<std::string> tokens = nodes.at(i)->tokens;
 
-        if (std::find(symbols.begin(), symbols.end(), symbol) != symbols.end())
+        if (std::find(tokens.begin(), tokens.end(), token) != tokens.end())
             return nodes.at(i);
     }
     

@@ -66,7 +66,7 @@ void FileReader::ReadFile(std::string path)
     {
         Node* node;
 
-        std::string prevSymbol = "";
+        std::string prevToken = "";
         std::string line;
 
         std::cout << "Loading file...\n";
@@ -77,24 +77,21 @@ void FileReader::ReadFile(std::string path)
             {
                 std::vector<std::string> splittedLine = SplitLine(line, ' ');
 
-                std::string symbol = splittedLine.at(0);
+                std::string token = splittedLine.at(0);
 
-                if (symbol != "#")
+                if (token != "#")
                 {
-                    if (symbol != prevSymbol)
-                        node = manager->GetNodeBySymbol(symbol);
+                    if (token != prevToken)
+                        node = manager->GetNodeByToken(token);
 
                     if (node)
                     {
                         node->HandleData(splittedLine);
-                        manager->SaveNodeData(symbol, node);
+                        manager->SaveNodeData(token, node);
                     }
-
-                    // else
-                    //     std::cout << "Nieobsluzony symbol: " << symbol << "\n";
                 }
 
-                prevSymbol = symbol;
+                prevToken = token;
             }
         }
 

@@ -2,6 +2,7 @@
 
 void ObjFileManager::Init()
 {
+    //TODO: pytanie do Antona: co w zasadzie jest nam potrzebne?
     nodes = 
     {
         new DoubleVectorNode({"v", "vn", "vt", "vp"}),
@@ -12,27 +13,27 @@ void ObjFileManager::Init()
     };
 }
 
-void ObjFileManager::SaveNodeData(std::string symbol, Node* node)
+void ObjFileManager::SaveNodeData(std::string token, Node* node)
 {
-    if (symbol == "v")
+    if (token == "v")
         vertices.push_back(((DoubleVectorNode*) node)->data);
-    // else if (symbol == "vn")
+    // else if (token == "vn")
     //     textureCoords.push_back(((DoubleVectorNode*) node)->data);
-    // else if (symbol == "vt")
+    // else if (token == "vt")
     //     vertexNormals.push_back(((DoubleVectorNode*) node)->data);
-    // else if (symbol == "vp")
+    // else if (token == "vp")
     //     uv.push_back(((DoubleVectorNode*) node)->data);
-    // else if (symbol == "mtllib")
+    // else if (token == "mtllib")
     //     mtllib = ((StringNode*) node)->data;
-    else if (symbol == "o")
+    else if (token == "o")
         meshName = ((StringNode*) node)->data;
-    else if (symbol == "usemtl")
+    else if (token == "usemtl")
         mtlName = ((StringNode*) node)->data;
-    // else if (symbol == "s")
+    // else if (token == "s")
     //     smoothShading = ((IntNode*) node)->data;
-    // else if (symbol == "l")
+    // else if (token == "l")
     //     lines.push_back(((IntVectorNode*) node)->data);
-    // else if (symbol == "f")
+    // else if (token == "f")
     //     faces.push_back(((VertexNode*) node)->data);
 }
 

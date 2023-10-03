@@ -13,9 +13,9 @@ protected:
 public:
     FileManager(){};
 
-    Node* GetNodeBySymbol(std::string symbol);
+    Node* GetNodeByToken(std::string token);
 
     virtual void Init() = 0;
-    virtual void SaveNodeData(std::string symbol, Node* node) = 0;
+    virtual void SaveNodeData(std::string token, Node* node) = 0;
     virtual void InterpretData() = 0;
 };

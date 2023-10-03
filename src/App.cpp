@@ -79,7 +79,10 @@ void App::FetchInput()
 
     if (inputManager.isFileDropped)
     {
-        fileReader.ReadFile(inputManager.droppedFiles.paths[0]);
+        for (int i = 0; i < inputManager.droppedFiles.count; i++)
+        {
+            fileReader.ReadFile(inputManager.droppedFiles.paths[i]);
+        }
     }
 
     if (inputManager.isWindowResized)

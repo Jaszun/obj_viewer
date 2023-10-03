@@ -15,8 +15,8 @@ public:
     ObjFileManager() : FileManager(){};
 
     void Init();
-    void SaveNodeData(std::string symbol, Node* node);
+    void SaveNodeData(std::string token, Node* node);
     void InterpretData();
 
-    Node* GetNodeBySymbol(std::string symbol);
+    Node* GetNodeByToken(std::string token);
 };
