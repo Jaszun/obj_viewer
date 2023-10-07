@@ -25,6 +25,7 @@ void App::Init()
 
         renderer = Renderer(windowHandle);
         renderer.SetShader();
+        renderer.Init();
 
         inputManager = InputManager(windowHandle);
         inputManager.Init();

@@ -58,3 +58,9 @@ unsigned int Shader::CompileShader(const char *shaderPath, unsigned int shaderTa
 
     return shader;
 }
+
+void Shader::SetUniformVec3(glm::vec3 vec, const char *name)
+{
+    int uniformLoc = glGetUniformLocation(shaderID, name);
+    glUniform3fv(uniformLoc, 1, glm::value_ptr(vec));
+}
