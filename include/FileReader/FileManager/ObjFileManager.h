@@ -8,7 +8,7 @@
 class ObjFileManager: public FileManager
 {
 private:
-    std::vector<std::vector<double>> vertices;
+    std::vector<glm::vec3> positions;
     std::string meshName;
     std::string mtlName;
 public:

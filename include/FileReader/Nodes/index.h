@@ -1,3 +1,3 @@
 #include "Node.h"
-#include "DoubleVectorNode.h"
+#include "GlmVec3Node.h"
 #include "StringNode.h"

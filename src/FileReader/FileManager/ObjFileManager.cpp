@@ -2,10 +2,10 @@
 
 void ObjFileManager::Init()
 {
-    //TODO: pytanie do Antona: co w zasadzie jest nam potrzebne?
     nodes = 
     {
-        new DoubleVectorNode({"v", "vn", "vt", "vp"}),
+        new GlmVec3Node({"v", "vn"}),
+        // new GlmVec2Node({"vt"}),
         new StringNode({"mtllib", "o", "usemtl"}),
         // new IntNode("s"),
         // new IntVectorNode("l"),
@@ -16,7 +16,7 @@ void ObjFileManager::Init()
 void ObjFileManager::SaveNodeData(std::string token, Node* node)
 {
     if (token == "v")
-        vertices.push_back(((DoubleVectorNode*) node)->data);
+        positions.push_back(((GlmVec3Node*) node)->data);
     // else if (token == "vn")
     //     textureCoords.push_back(((DoubleVectorNode*) node)->data);
     // else if (token == "vt")
@@ -41,18 +41,15 @@ void ObjFileManager::InterpretData()
 {
     // temp
 
-    std::cout << "Vertices:\n";
+    std::cout << "Positions:\n";
 
-    for (int i = 0; i < vertices.size(); i++)
+    for (int i = 0; i < positions.size(); i++)
     {
-        std::vector<double> vertex = vertices.at(i);
+        glm::vec3 position = positions.at(i);
 
-        for (int j = 0; j < vertex.size(); j++)
-        {
-            std::cout << vertex.at(j) << " ";
-        }
-
-        std::cout << "\n";
+        std::cout << position.x << " ";
+        std::cout << position.y << " ";
+        std::cout << position.z << "\n";
     }
 
     std::cout << "Mesh name: " << meshName << "\n";
