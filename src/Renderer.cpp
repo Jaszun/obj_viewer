@@ -9,7 +9,7 @@ Renderer::Renderer(GLFWwindow *window) : windowHandle(window)
 
 void Renderer::Init()
 {
-  std::vector<Mesh> triangleMeshes;
+  std::vector<std::shared_ptr<Mesh>> triangleMeshes;
 
   std::vector<Vertex> vertices{
       {glm::vec3(-0.8, -0.5, 0.5), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
@@ -21,11 +21,11 @@ void Renderer::Init()
       {glm::vec3(0.8, -0.5, -0.5), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
       {glm::vec3(0.5, 0.1, -0.5), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)}};
 
-  triangleMeshes.reserve(2);
-  triangleMeshes.emplace_back(std::move(vertices));
-  triangleMeshes.emplace_back(std::move(vertices2));
+  // triangleMeshes.reserve(2);
+  triangleMeshes.emplace_back(std::make_shared<Mesh>(std::move(vertices)));
+  triangleMeshes.emplace_back(std::make_shared<Mesh>(std::move(vertices2)));
 
-  objects.emplace_back(std::move(triangleMeshes));
+  objects.emplace_back(std::make_shared<Object>(std::move(triangleMeshes)));
 }
 
 Renderer::~Renderer()
@@ -34,7 +34,7 @@ Renderer::~Renderer()
 
 void Renderer::SetShader()
 {
-  shader = Shader("./shaders/VertexShader.vert", "./shaders/FragmentShader.frag");
+  shader = std::make_shared<Shader>("./shaders/VertexShader.vert", "./shaders/FragmentShader.frag");
 }
 
 void Renderer::Draw(double time)
@@ -42,11 +42,11 @@ void Renderer::Draw(double time)
 
   glClearColor((cos(time) + 1) / 2, 0.f, (sin(time) + 1) / 2, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT);
-  shader.Use();
+  shader->Use();
 
-  for (int i = 0; i < objects.size(); i++)
+  for (const auto &object : objects)
   {
-    objects[i].Draw(&shader);
+    object->Draw(shader);
   }
 
   // for (Object object : objects)

@@ -3,8 +3,8 @@
 Mesh::Mesh(std::vector<Vertex> &&vertices)
     : vertices(vertices)
 {
-    vao = new VAO();
-    vbo = new VBO(vertices.data(), std::size(vertices));
+    vao = std::make_unique<VAO>();
+    vbo = std::make_unique<VBO>(vertices.data(), std::size(vertices));
     vao->Bind();
     vao->AddBuffer(*vbo);
     vao->Unbind();
@@ -13,7 +13,6 @@ Mesh::Mesh(std::vector<Vertex> &&vertices)
 Mesh::~Mesh()
 {
     std::cout << "Mesh culled\n";
-    delete vao, vbo;
 }
 
 void Mesh::Draw()

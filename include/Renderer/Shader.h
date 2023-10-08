@@ -1,21 +1,26 @@
 #pragma once
 
 #include <iostream>
+#include <memory>
+#include <unordered_map>
 #include <fstream>
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-/*
-TODO:
-[] read and store uniform names, types
-[] whenever an uniform is about to be changed check whether it exists and if the type matches
-*/
+struct UniformInfo
+{
+    int location;
+    int count;
+};
 
 class Shader
 {
 private:
     unsigned int shaderID;
+    std::unordered_map<std::string, UniformInfo> uniforms;
+
+    bool CheckUniform(const char *name);
 
 public:
     Shader();
@@ -25,5 +30,6 @@ public:
     void Use();
 
     unsigned int CompileShader(const char *shaderPath, unsigned int shaderTarget);
+    void ReadAllUniforms();
     void SetUniformVec3(glm::vec3 vec, const char *name);
 };

@@ -16,12 +16,22 @@ Shader::Shader(const char *vertexShaderPath, const char *fragmentShaderPath)
 
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
+
+    ReadAllUniforms();
 }
 
 Shader::~Shader()
 {
     // robi seg fault to może lepiej nie, trzeba będzie potem ogarnąć żeby renderer czyścił programy czy coś
-    // glDeleteProgram(shaderID);
+    std::cout << "Shader destructor\n";
+    glDeleteProgram(shaderID);
+}
+
+bool Shader::CheckUniform(const char *name)
+{
+    if (uniforms.find(name) != uniforms.end())
+        return true;
+    return false;
 }
 
 void Shader::Use()
@@ -59,8 +69,42 @@ unsigned int Shader::CompileShader(const char *shaderPath, unsigned int shaderTa
     return shader;
 }
 
+/**
+ * courtesy of https://github.com/fendevel/Guide-to-Modern-OpenGL-Functions#ideal-way-of-retrieving-all-uniform-names
+ */
+void Shader::ReadAllUniforms()
+{
+    GLint uniform_count = 0;
+    glGetProgramiv(shaderID, GL_ACTIVE_UNIFORMS, &uniform_count);
+
+    if (uniform_count != 0)
+    {
+        GLint max_name_len = 0;
+        GLsizei length = 0;
+        GLsizei count = 0;
+        GLenum type = GL_NONE;
+        glGetProgramiv(shaderID, GL_ACTIVE_UNIFORM_MAX_LENGTH, &max_name_len);
+
+        auto uniform_name = std::make_unique<char[]>(max_name_len);
+
+        for (GLint i = 0; i < uniform_count; ++i)
+        {
+            glGetActiveUniform(shaderID, i, max_name_len, &length, &count, &type, uniform_name.get());
+
+            UniformInfo uniform_info = {
+                glGetUniformLocation(shaderID, uniform_name.get()),
+                count};
+
+            uniforms.emplace(std::make_pair(std::string(uniform_name.get(), length), uniform_info));
+        }
+    }
+}
+
 void Shader::SetUniformVec3(glm::vec3 vec, const char *name)
 {
-    int uniformLoc = glGetUniformLocation(shaderID, name);
-    glUniform3fv(uniformLoc, 1, glm::value_ptr(vec));
+    if (CheckUniform(name))
+    {
+        glUniform3fv(uniforms[name].location, uniforms[name].count, glm::value_ptr(vec));
+        // std::cout << name << " " << uniforms[name].count << " " << uniforms[name].location << " " << vec.z << "\n";
+    }
 }

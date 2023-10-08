@@ -2,6 +2,7 @@
 
 #include <deque>
 #include <iostream>
+#include <memory>
 #include <vector>
 
 #include <glad/glad.h>
@@ -18,8 +19,8 @@ class Renderer
 private:
   GLFWwindow *windowHandle;
 
-  Shader shader{};
-  std::deque<Object> objects;
+  std::shared_ptr<Shader> shader;
+  std::vector<std::shared_ptr<Object>> objects;
 
 public:
   Renderer(GLFWwindow *window);

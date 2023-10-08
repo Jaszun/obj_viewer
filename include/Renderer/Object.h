@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <memory>
 #include <vector>
 
 #include "Renderer/Mesh.h"
@@ -17,10 +18,10 @@ TODO:
 class Object
 {
 private:
-    std::vector<Mesh> meshes;
+    std::vector<std::shared_ptr<Mesh>> meshes;
 
 public:
-    Object(std::vector<Mesh> &&meshes);
+    Object(std::vector<std::shared_ptr<Mesh>> &&meshes);
     ~Object();
-    void Draw(Shader *shader);
+    void Draw(std::shared_ptr<Shader> &shader);
 };

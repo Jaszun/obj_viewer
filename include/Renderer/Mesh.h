@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <memory>
 #include <vector>
 
 #include "Vertex.h"
@@ -19,8 +20,8 @@ class Mesh
 {
 private:
     std::vector<Vertex> vertices;
-    VAO *vao;
-    VBO *vbo;
+    std::unique_ptr<VAO> vao;
+    std::unique_ptr<VBO> vbo;
 
 public:
     Mesh(std::vector<Vertex> &&vertices);
