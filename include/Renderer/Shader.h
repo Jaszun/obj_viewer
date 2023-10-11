@@ -31,5 +31,6 @@ public:
 
     unsigned int CompileShader(const char *shaderPath, unsigned int shaderTarget);
     void ReadAllUniforms();
-    void SetUniformVec3(glm::vec3 vec, const char *name);
+    void SetUniformVec3(const glm::vec3 &vec, const char *name);
+    void SetUniformMat4(const glm::mat4 &mat, const char *name);
 };

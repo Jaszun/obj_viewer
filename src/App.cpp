@@ -170,5 +170,8 @@ void App::Update()
 
 void App::Render()
 {
+    if (inputManager.isWindowResized)
+        renderer.Resize(inputManager.window.newWidth, inputManager.window.newHeight);
+
     renderer.Draw(timeElapsed);
 }

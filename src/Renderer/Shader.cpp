@@ -100,11 +100,20 @@ void Shader::ReadAllUniforms()
     }
 }
 
-void Shader::SetUniformVec3(glm::vec3 vec, const char *name)
+void Shader::SetUniformVec3(const glm::vec3 &vec, const char *name)
 {
     if (CheckUniform(name))
     {
-        glUniform3fv(uniforms[name].location, uniforms[name].count, glm::value_ptr(vec));
+        glProgramUniform3fv(shaderID, uniforms[name].location, uniforms[name].count, glm::value_ptr(vec));
+        // std::cout << name << " " << uniforms[name].count << " " << uniforms[name].location << " " << vec.z << "\n";
+    }
+}
+
+void Shader::SetUniformMat4(const glm::mat4 &mat, const char *name)
+{
+    if (CheckUniform(name))
+    {
+        glProgramUniformMatrix4fv(shaderID, uniforms[name].location, uniforms[name].count, GL_FALSE, glm::value_ptr(mat));
         // std::cout << name << " " << uniforms[name].count << " " << uniforms[name].location << " " << vec.z << "\n";
     }
 }
