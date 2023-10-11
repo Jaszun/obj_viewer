@@ -5,11 +5,11 @@ void ObjFileManager::Init()
     nodes = 
     {
         new GlmVec3Node({"v", "vn"}),
-        // new GlmVec2Node({"vt"}),
+        new GlmVec2Node({"vt"}),
         new StringNode({"mtllib", "o", "usemtl"}),
         // new IntNode("s"),
         // new IntVectorNode("l"),
-        // new VertexNode("f"),
+        new ObjFaceNode({"f"}),
     };
 }
 
@@ -17,10 +17,10 @@ void ObjFileManager::SaveNodeData(std::string token, Node* node)
 {
     if (token == "v")
         positions.push_back(((GlmVec3Node*) node)->data);
-    // else if (token == "vn")
-    //     textureCoords.push_back(((DoubleVectorNode*) node)->data);
-    // else if (token == "vt")
-    //     vertexNormals.push_back(((DoubleVectorNode*) node)->data);
+    else if (token == "vn")
+        normals.push_back(((GlmVec3Node*) node)->data);
+    else if (token == "vt")
+        uv.push_back(((GlmVec2Node*) node)->data);
     // else if (token == "vp")
     //     uv.push_back(((DoubleVectorNode*) node)->data);
     // else if (token == "mtllib")
@@ -33,24 +33,36 @@ void ObjFileManager::SaveNodeData(std::string token, Node* node)
     //     smoothShading = ((IntNode*) node)->data;
     // else if (token == "l")
     //     lines.push_back(((IntVectorNode*) node)->data);
-    // else if (token == "f")
-    //     faces.push_back(((VertexNode*) node)->data);
+    else if (token == "f")
+        faces.push_back(((ObjFaceNode*) node)->data);
 }
 
 void ObjFileManager::InterpretData()
 {
-    // temp
+    // chyba może być vector, prawda?
+    //
+    // prawda?
+    //
+    // glBufferData(
+    // GL_ARRAY_BUFFER,
+    // vertices.size() * sizeof(Vertex),
+    // &vertices.front(),
+    // GL_STATIC_DRAW
+    // );
 
-    std::cout << "Positions:\n";
+    // TODO: FaceNode
+    //
+    // for (int i = 0; i < faces.size(); i++)
+    // {
+    //     
+    //     
+    //     if (vertex not in vertices)
+    //         
+    //
+    //     vertices.push_back({ positions.at(i), normals.at(i), uv.at(i) });
 
-    for (int i = 0; i < positions.size(); i++)
-    {
-        glm::vec3 position = positions.at(i);
-
-        std::cout << position.x << " ";
-        std::cout << position.y << " ";
-        std::cout << position.z << "\n";
-    }
+    //     std::cout << i << "\n";
+    // }
 
     std::cout << "Mesh name: " << meshName << "\n";
     std::cout << "Material: " << mtlName << "\n";

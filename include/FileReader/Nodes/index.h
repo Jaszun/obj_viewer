@@ -1,3 +1,5 @@
 #include "Node.h"
+#include "GlmVec2Node.h"
 #include "GlmVec3Node.h"
+#include "ObjFaceNode.h"
 #include "StringNode.h"

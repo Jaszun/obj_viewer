@@ -29,8 +29,10 @@ add_executable(
     src/InputManager.cpp
     src/FileReader.cpp
     src/FileReader/Nodes/Node.cpp
+    src/FileReader/Nodes/GlmVec2Node.cpp
     src/FileReader/Nodes/GlmVec3Node.cpp
     src/FileReader/Nodes/StringNode.cpp
+    src/FileReader/Nodes/ObjFaceNode.cpp
     src/FileReader/FileManager/FileManager.cpp
     src/FileReader/FileManager/ObjFileManager.cpp
 )
