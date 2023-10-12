@@ -29,14 +29,14 @@ void ObjFaceNode::HandleData(std::vector<std::string> splittedLine)
 {
     int index = 0;
 
-    for (int i = 1; i < 3; i++)
+    for (int i = 1; i <= 3; i++)
     {
         std::vector<int> vertexInfo = splitLine(splittedLine.at(i), '/');
 
         for (int j = 0; j < 3; j++)
         {
-            std::cout << vertexInfo.at(j) << "\n";
-            data[index++] = vertexInfo.at(j);
+            //-1 bo to indexy
+            data[index++] = vertexInfo.at(j) - 1;
         }
     }
 }

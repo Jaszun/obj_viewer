@@ -39,30 +39,22 @@ void ObjFileManager::SaveNodeData(std::string token, Node* node)
 
 void ObjFileManager::InterpretData()
 {
-    // chyba może być vector, prawda?
-    //
-    // prawda?
-    //
-    // glBufferData(
-    // GL_ARRAY_BUFFER,
-    // vertices.size() * sizeof(Vertex),
-    // &vertices.front(),
-    // GL_STATIC_DRAW
-    // );
+    for (int i = 0; i < faces.size(); i++)
+    {
+        std::array<int, 9> face = faces.at(i);
 
-    // TODO: FaceNode
-    //
-    // for (int i = 0; i < faces.size(); i++)
-    // {
-    //     
-    //     
-    //     if (vertex not in vertices)
-    //         
-    //
-    //     vertices.push_back({ positions.at(i), normals.at(i), uv.at(i) });
+        for (int j = 0; j < 3; j++)
+        {
+            int vertexIndex = j * 3;
 
-    //     std::cout << i << "\n";
-    // }
+            vertices.push_back(
+                {
+                    positions.at(face[0 + vertexIndex]),
+                    uv.at(face[1 + vertexIndex]),
+                    normals.at(face[2 + vertexIndex])
+                });
+        }
+    }
 
     std::cout << "Mesh name: " << meshName << "\n";
     std::cout << "Material: " << mtlName << "\n";
