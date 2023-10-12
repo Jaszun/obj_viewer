@@ -16,10 +16,10 @@ void Object::Draw(std::shared_ptr<Shader> &shader)
     for (const auto &mesh : meshes)
     {
         shader->SetUniformMat4(model, "model");
+        // shader->UseMaterial(mesh.GetMaterial()); <- preview, still not sure about this form of using materials
 
         if (i++ % 2)
             shader->SetUniformVec3(glm::vec3(1.0f, 51.0f / 255, 102.0f / 255), "u_Color");
-        // shader->UseMaterial(mesh.GetMaterial());
         else
             shader->SetUniformVec3(glm::vec3(46.0 / 255, 196.0 / 255, 182.0 / 255), "u_Color");
 

@@ -39,7 +39,6 @@ void Renderer::Init()
       {glm::vec3(0.3, -0.5, -0.2), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
       {glm::vec3(0.0, 0.1, -0.2), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)}};
 
-  // triangleMeshes.reserve(2);
   triangleMeshes.emplace_back(std::make_shared<Mesh>(std::move(vertices)));
   triangleMeshes.emplace_back(std::make_shared<Mesh>(std::move(vertices3)));
   triangleMeshes.emplace_back(std::make_shared<Mesh>(std::move(vertices2)));
@@ -127,8 +126,4 @@ void Renderer::Draw(double time)
   }
 
   timeElapsed = time;
-  // for (Object object : objects)
-  // object.Draw();
-
-  // glDrawArrays(GL_TRIANGLES, 0, 3);
 }

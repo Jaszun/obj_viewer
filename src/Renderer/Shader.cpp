@@ -22,7 +22,6 @@ Shader::Shader(const char *vertexShaderPath, const char *fragmentShaderPath)
 
 Shader::~Shader()
 {
-    // robi seg fault to może lepiej nie, trzeba będzie potem ogarnąć żeby renderer czyścił programy czy coś
     std::cout << "Shader destructor\n";
     glDeleteProgram(shaderID);
 }
@@ -105,7 +104,6 @@ void Shader::SetUniformVec3(const glm::vec3 &vec, const char *name)
     if (CheckUniform(name))
     {
         glProgramUniform3fv(shaderID, uniforms[name].location, uniforms[name].count, glm::value_ptr(vec));
-        // std::cout << name << " " << uniforms[name].count << " " << uniforms[name].location << " " << vec.z << "\n";
     }
 }
 
@@ -114,6 +112,5 @@ void Shader::SetUniformMat4(const glm::mat4 &mat, const char *name)
     if (CheckUniform(name))
     {
         glProgramUniformMatrix4fv(shaderID, uniforms[name].location, uniforms[name].count, GL_FALSE, glm::value_ptr(mat));
-        // std::cout << name << " " << uniforms[name].count << " " << uniforms[name].location << " " << vec.z << "\n";
     }
 }
