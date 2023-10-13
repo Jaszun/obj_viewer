@@ -1,15 +1,15 @@
 #include "App.h"
 
-App::App(int width, int height, std::string appName) : width(width), height(height), appName(appName) 
+App::App(int width, int height, std::string appName) : width(width), height(height), appName(appName)
 {
-    
 }
 
-App::~App() 
+App::~App()
 {
     std::cout << "Cleaning up!" << std::endl;
-    glfwDestroyWindow(windowHandle);
-    glfwTerminate();
+    // to be reimplemented
+    // glfwDestroyWindow(windowHandle);
+    // glfwTerminate();
 }
 
 void App::Init()
@@ -22,9 +22,11 @@ void App::Init()
     if (windowHandle)
     {
         glfwMakeContextCurrent(windowHandle);
-        gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
+        gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
         renderer = Renderer(windowHandle);
+        renderer.SetShader();
+        renderer.Init();
 
         inputManager = InputManager(windowHandle);
         inputManager.Init();
@@ -38,7 +40,7 @@ void App::Init()
 void App::Run()
 {
     Init();
-
+    // isRunning = false; // <- uncomment when testing app framework without looping
     while (isRunning && !glfwWindowShouldClose(windowHandle))
     {
         timeElapsed = glfwGetTime();
@@ -79,8 +81,9 @@ void App::FetchInput()
     {
         std::cout << "Someone's just dropped a file(s)\n";
         std::cout << "Num of files: " << inputManager.droppedFiles.count << ", Paths:\n";
-        
-        for (int i = 0; i < inputManager.droppedFiles.count; i++) {
+
+        for (int i = 0; i < inputManager.droppedFiles.count; i++)
+        {
             std::cout << i + 1 << ". " << inputManager.droppedFiles.paths[i] << "\n";
         }
     }
@@ -104,5 +107,8 @@ void App::Update()
 
 void App::Render()
 {
+    if (inputManager.isWindowResized)
+        renderer.Resize(inputManager.window.newWidth, inputManager.window.newHeight);
+
     renderer.Draw(timeElapsed);
 }

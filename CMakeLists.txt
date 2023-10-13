@@ -27,6 +27,11 @@ add_executable(
     src/App.cpp
     src/Renderer.cpp
     src/InputManager.cpp
+    src/Renderer/Shader.cpp
+    src/Renderer/Object.cpp
+    src/Renderer/Mesh.cpp
+    src/Renderer/VBO.cpp
+    src/Renderer/VAO.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
@@ -42,3 +47,7 @@ target_link_directories(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME} glfw glm glad)
+
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                       ${CMAKE_SOURCE_DIR}/res/ $<TARGET_FILE_DIR:${PROJECT_NAME}>)
