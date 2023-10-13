@@ -20,14 +20,16 @@ private:
     std::vector<glm::vec3> normals;
     std::vector<glm::vec2> uv;
 
-    std::vector<Vertex> vertices;
-
     std::vector<std::array<int, 9>> faces;
 
     std::string meshName;
     std::string mtlName;
 public:
-    ObjFileManager() : FileManager(){};
+    std::string commentToken = "#";
+
+    std::vector<Vertex> vertices;
+
+    ObjFileManager();
 
     void Init();
     void SaveData(std::string token, Converter* converter);

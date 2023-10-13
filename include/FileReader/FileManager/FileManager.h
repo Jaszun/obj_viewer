@@ -11,7 +11,10 @@ class FileManager
 protected:
     std::vector<Converter*> converters;
 public:
-    FileManager(){};
+    std::string commentToken;
+
+    FileManager();
+    ~FileManager();
 
     Converter* GetConverterByToken(std::string token);
 

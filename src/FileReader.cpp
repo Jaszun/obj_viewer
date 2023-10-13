@@ -13,8 +13,6 @@ std::vector<std::string> FileReader::SplitLine(std::string line, char separator)
     std::vector<std::string> splittedLine;
 
     std::string temp = "";
-
-    int index = 0;
    
     for (int i = 0; i < line.length(); i++)
     {
@@ -81,7 +79,7 @@ void FileReader::ReadFile(std::string path)
 
                 std::string token = splittedLine.at(0);
 
-                if (token != "#") // TODO: replace with token not in manager->ignoredTokens ?
+                if (token != fileManager->commentToken)
                 {
                     if (token != prevToken)
                         converter = fileManager->GetConverterByToken(token);

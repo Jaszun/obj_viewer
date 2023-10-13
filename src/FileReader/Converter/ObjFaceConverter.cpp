@@ -11,8 +11,6 @@ std::vector<int> ObjFaceConverter::GetIndexesForVertex(std::string line)
     std::string temp = "";
 
     char separator = '/';
-
-    int index = 0;
    
     for (int i = 0; i < line.length(); i++)
     {

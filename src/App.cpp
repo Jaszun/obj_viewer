@@ -101,7 +101,7 @@ void App::Update()
 
             if (fileReader.fileRead)
             {
-                // Handle received data from fileReader.fileManager
+                //TODO: Handle received data from fileReader.fileManager
             }
         }
     }

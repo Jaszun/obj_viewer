@@ -1,5 +1,13 @@
 #include "FileReader/FileManager/FileManager.h"
 
+FileManager::FileManager()
+{
+}
+
+FileManager::~FileManager()
+{
+}
+
 Converter* FileManager::GetConverterByToken(std::string token)
 {
     for (int i = 0; i < converters.size(); i++)

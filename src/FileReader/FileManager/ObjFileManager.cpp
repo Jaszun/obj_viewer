@@ -1,15 +1,20 @@
 #include "FileReader/FileManager/ObjFileManager.h"
 
+ObjFileManager::ObjFileManager() : FileManager()
+{
+}
+
 void ObjFileManager::Init()
 {
     converters = 
     {
         new GlmVec3Converter({"v", "vn"}),
         new GlmVec2Converter({"vt"}),
-        new StringConverter({"mtllib", "o", "usemtl"}),
+        new ObjFaceConverter({"f"}),
+        // temp - depends on what we need
+        new StringConverter({"mtllib", "o", "usemtl"})
         // new IntConverter("s"),
         // new IntVectorConverter("l"),
-        new ObjFaceConverter({"f"}),
     };
 }
 
@@ -21,6 +26,10 @@ void ObjFileManager::SaveData(std::string token, Converter* converter)
         normals.push_back(((GlmVec3Converter*) converter)->data);
     else if (token == "vt")
         uv.push_back(((GlmVec2Converter*) converter)->data);
+    else if (token == "f")
+        faces.push_back(((ObjFaceConverter*) converter)->data);
+    // temp
+    //
     // else if (token == "vp")
     //     uv.push_back(((DoubleVectorConverter*) converter)->data);
     // else if (token == "mtllib")
@@ -33,8 +42,6 @@ void ObjFileManager::SaveData(std::string token, Converter* converter)
     //     smoothShading = ((IntConverter*) converter)->data;
     // else if (token == "l")
     //     lines.push_back(((IntVectorConverter*) converter)->data);
-    else if (token == "f")
-        faces.push_back(((ObjFaceConverter*) converter)->data);
 }
 
 void ObjFileManager::InterpretData()
@@ -56,6 +63,7 @@ void ObjFileManager::InterpretData()
         }
     }
 
+    // temp
     std::cout << "Mesh name: " << meshName << "\n";
     std::cout << "Material: " << mtlName << "\n";
 }
