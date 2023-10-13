@@ -28,11 +28,11 @@ add_executable(
     src/Renderer.cpp
     src/InputManager.cpp
     src/FileReader.cpp
-    src/FileReader/Converters/Converter.cpp
-    src/FileReader/Converters/GlmVec2Converter.cpp
-    src/FileReader/Converters/GlmVec3Converter.cpp
-    src/FileReader/Converters/StringConverter.cpp
-    src/FileReader/Converters/ObjFaceConverter.cpp
+    src/FileReader/Converter/Converter.cpp
+    src/FileReader/Converter/GlmVec2Converter.cpp
+    src/FileReader/Converter/GlmVec3Converter.cpp
+    src/FileReader/Converter/StringConverter.cpp
+    src/FileReader/Converter/ObjFaceConverter.cpp
     src/FileReader/FileManager/FileManager.cpp
     src/FileReader/FileManager/ObjFileManager.cpp
     src/Renderer/Shader.cpp

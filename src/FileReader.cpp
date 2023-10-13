@@ -48,15 +48,17 @@ FileManager* FileReader::GetFileManager(std::string path)
 
 void FileReader::ReadFile(std::string path)
 {
-    FileManager* manager = GetFileManager(path);
+    fileRead = false;
 
-    if (!manager)
+    fileManager = GetFileManager(path);
+
+    if (!fileManager)
     {
-        std::cout << "Nie rozpoznano pliku\n";
+        std::cout << "File not recognized\n";
         return;
     }
 
-    manager->Init();
+    fileManager->Init();
 
     std::ifstream file;
 
@@ -82,12 +84,12 @@ void FileReader::ReadFile(std::string path)
                 if (token != "#") // TODO: replace with token not in manager->ignoredTokens ?
                 {
                     if (token != prevToken)
-                        converter = manager->GetConverterByToken(token);
+                        converter = fileManager->GetConverterByToken(token);
 
                     if (converter)
                     {
                         converter->Convert(splittedLine);
-                        manager->SaveData(token, converter);
+                        fileManager->SaveData(token, converter);
                     }
                 }
 
@@ -102,5 +104,7 @@ void FileReader::ReadFile(std::string path)
         file.close();
     }
 
-    manager->InterpretData();
+    fileManager->InterpretData();
+
+    fileRead = true;
 }

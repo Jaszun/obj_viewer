@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "FileReader/Converters/Converter.h"
+#include "FileReader/Converter/Converter.h"
 #include "FileReader/FileManager/index.h"
 
 class FileReader
@@ -15,6 +15,10 @@ private:
 
     FileManager* GetFileManager(std::string path);
 public:
+    FileManager* fileManager;
+
+    bool fileRead = false;
+
     FileReader();
     ~FileReader();
 

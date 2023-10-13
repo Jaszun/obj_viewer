@@ -7,11 +7,11 @@
 
 #include "FileManager.h"
 
-#include "FileReader/Converters/Converter.h"
-#include "FileReader/Converters/GlmVec2Converter.h"
-#include "FileReader/Converters/GlmVec3Converter.h"
-#include "FileReader/Converters/StringConverter.h"
-#include "FileReader/Converters/ObjFaceConverter.h"
+#include "FileReader/Converter/Converter.h"
+#include "FileReader/Converter/GlmVec2Converter.h"
+#include "FileReader/Converter/GlmVec3Converter.h"
+#include "FileReader/Converter/StringConverter.h"
+#include "FileReader/Converter/ObjFaceConverter.h"
 
 class ObjFileManager: public FileManager
 {

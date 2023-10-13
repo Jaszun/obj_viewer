@@ -79,14 +79,6 @@ void App::FetchInput()
         std::cout << inputManager.dragCurrentPoint.xOffset << " " << inputManager.dragCurrentPoint.yOffset << "\n";
     }
 
-    if (inputManager.isFileDropped)
-    {
-        for (int i = 0; i < inputManager.droppedFiles.count; i++)
-        {
-            fileReader.ReadFile(inputManager.droppedFiles.paths[i]);
-        }
-    }
-
     if (inputManager.isWindowResized)
     {
         width = inputManager.window.newWidth;
@@ -101,7 +93,18 @@ void App::FetchInput()
 
 void App::Update()
 {
-    // std::cout << "Updating..." << '\n';
+    if (inputManager.isFileDropped)
+    {
+        for (int i = 0; i < inputManager.droppedFiles.count; i++)
+        {
+            fileReader.ReadFile(inputManager.droppedFiles.paths[i]);
+
+            if (fileReader.fileRead)
+            {
+                // Handle received data from fileReader.fileManager
+            }
+        }
+    }
 }
 
 void App::Render()

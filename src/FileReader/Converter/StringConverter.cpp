@@ -1,4 +1,4 @@
-#include "FileReader/Converters/StringConverter.h"
+#include "FileReader/Converter/StringConverter.h"
 
 StringConverter::StringConverter(std::vector<std::string> tokens) : Converter(tokens)
 {

@@ -1,4 +1,4 @@
-#include "FileReader/Converters/GlmVec2Converter.h"
+#include "FileReader/Converter/GlmVec2Converter.h"
 
 GlmVec2Converter::GlmVec2Converter(std::vector<std::string> tokens) : Converter(tokens)
 {

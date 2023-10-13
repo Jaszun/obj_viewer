@@ -1,4 +1,4 @@
-#include "FileReader/Converters/ObjFaceConverter.h"
+#include "FileReader/Converter/ObjFaceConverter.h"
 
 ObjFaceConverter::ObjFaceConverter(std::vector<std::string> tokens) : Converter(tokens)
 {
