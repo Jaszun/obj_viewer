@@ -12,8 +12,7 @@
 class App
 {
 private:
-    // 3DObject m_Object;
-    Renderer renderer = nullptr; // <- idk chyba powinno się jakoś inaczej
+    Renderer renderer = nullptr; // <- to be changed;
     InputManager inputManager = nullptr;
     FileReader fileReader;
 
@@ -24,15 +23,15 @@ private:
 
     bool isRunning = false;
 
-    // value unexpected replace with "windowHandle{}" to initialize with zero value
-    GLFWwindow* windowHandle;
+    GLFWwindow *windowHandle;
     double timeElapsed{};
-    
+
     void Init();
 
     void FetchInput();
     void Update();
     void Render();
+
 public:
     App(int width, int height, std::string appName);
     ~App();
