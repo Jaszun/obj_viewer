@@ -1,13 +1,13 @@
 #include "FileReader/FileManager/FileManager.h"
 
-Node* FileManager::GetNodeByToken(std::string token)
+Converter* FileManager::GetConverterByToken(std::string token)
 {
-    for (int i = 0; i < nodes.size(); i++)
+    for (int i = 0; i < converters.size(); i++)
     {
-        std::vector<std::string> tokens = nodes.at(i)->tokens;
+        std::vector<std::string> tokens = converters.at(i)->tokens;
 
         if (std::find(tokens.begin(), tokens.end(), token) != tokens.end())
-            return nodes.at(i);
+            return converters.at(i);
     }
     
     return nullptr;

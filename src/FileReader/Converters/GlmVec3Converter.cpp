@@ -1,6 +1,6 @@
-#include "FileReader/Nodes/GlmVec3Node.h"
+#include "FileReader/Converters/GlmVec3Converter.h"
 
-void GlmVec3Node::HandleData(std::vector<std::string> splittedLine)
+void GlmVec3Converter::Convert(std::vector<std::string> splittedLine)
 {
     glm::vec3 v
     (

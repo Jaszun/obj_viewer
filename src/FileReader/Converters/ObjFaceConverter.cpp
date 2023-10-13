@@ -1,4 +1,4 @@
-#include "FileReader/Nodes/ObjFaceNode.h"
+#include "FileReader/Converters/ObjFaceConverter.h"
 
 std::vector<int> splitLine(std::string line, char separator)
 {
@@ -25,7 +25,7 @@ std::vector<int> splitLine(std::string line, char separator)
     return splittedLine;
 }
 
-void ObjFaceNode::HandleData(std::vector<std::string> splittedLine)
+void ObjFaceConverter::Convert(std::vector<std::string> splittedLine)
 {
     int index = 0;
 

@@ -64,7 +64,7 @@ void FileReader::ReadFile(std::string path)
 
     if (file.is_open())
     {
-        Node* node;
+        Converter* converter;
 
         std::string prevToken = "";
         std::string line;
@@ -79,15 +79,15 @@ void FileReader::ReadFile(std::string path)
 
                 std::string token = splittedLine.at(0);
 
-                if (token != "#")
+                if (token != "#") // TODO: replace with token not in manager->ignoredTokens
                 {
                     if (token != prevToken)
-                        node = manager->GetNodeByToken(token);
+                        converter = manager->GetConverterByToken(token);
 
-                    if (node)
+                    if (converter)
                     {
-                        node->HandleData(splittedLine);
-                        manager->SaveNodeData(token, node);
+                        converter->Convert(splittedLine);
+                        manager->SaveData(token, converter);
                     }
                 }
 
@@ -97,7 +97,7 @@ void FileReader::ReadFile(std::string path)
 
         std::cout << "Finished loading!\n";
         
-        delete node;
+        delete converter;
 
         file.close();
     }

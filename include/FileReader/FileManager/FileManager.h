@@ -4,18 +4,18 @@
 #include <vector>
 #include <algorithm>
 
-#include "FileReader/Nodes/index.h"
+#include "FileReader/Converters/index.h"
 
 class FileManager
 {
 protected:
-    std::vector<Node*> nodes;
+    std::vector<Converter*> converters;
 public:
     FileManager(){};
 
-    Node* GetNodeByToken(std::string token);
+    Converter* GetConverterByToken(std::string token);
 
     virtual void Init() = 0;
-    virtual void SaveNodeData(std::string token, Node* node) = 0;
+    virtual void SaveData(std::string token, Converter* converter) = 0;
     virtual void InterpretData() = 0;
 };
