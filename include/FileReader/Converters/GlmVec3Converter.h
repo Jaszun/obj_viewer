@@ -13,7 +13,7 @@ class GlmVec3Converter : public Converter
 public:
     glm::vec3 data;
 
-    GlmVec3Converter(std::vector<std::string> tokens) : Converter(tokens){this->tokens = tokens;};
+    GlmVec3Converter(std::vector<std::string> tokens);
 
     void Convert(std::vector<std::string> splittedLine);
 };

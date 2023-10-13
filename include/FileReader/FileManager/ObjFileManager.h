@@ -5,13 +5,7 @@
 
 #include "FileManager.h"
 #include "FileReader/Converters/Converter.h"
-
-struct Vertex
-{
-    glm::vec3 position;
-    glm::vec3 normal;
-    glm::vec2 uv;
-};
+#include "Renderer/Vertex.h" //TODO: wspólny typ danych
 
 class ObjFileManager: public FileManager
 {

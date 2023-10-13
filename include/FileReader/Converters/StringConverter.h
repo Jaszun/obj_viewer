@@ -10,7 +10,7 @@ class StringConverter : public Converter
 public:
     std::string data;
 
-    StringConverter(std::vector<std::string> tokens) : Converter(tokens){this->tokens = tokens;};
+    StringConverter(std::vector<std::string> tokens);
 
     void Convert(std::vector<std::string> splittedLine);
 };

@@ -1,10 +1,16 @@
 #include "FileReader/Converters/ObjFaceConverter.h"
 
-std::vector<int> splitLine(std::string line, char separator)
+ObjFaceConverter::ObjFaceConverter(std::vector<std::string> tokens) : Converter(tokens)
 {
-    std::vector<int> splittedLine;
+}
+
+std::vector<int> ObjFaceConverter::GetIndexesForVertex(std::string line)
+{
+    std::vector<int> indexes;
 
     std::string temp = "";
+
+    char separator = '/';
 
     int index = 0;
    
@@ -15,14 +21,14 @@ std::vector<int> splitLine(std::string line, char separator)
         
         else
         {
-            splittedLine.push_back(std::stoi(temp));
+            indexes.push_back(std::stoi(temp));
             temp = "";
         }
     }
 
-    splittedLine.push_back(std::stoi(temp));
+    indexes.push_back(std::stoi(temp));
 
-    return splittedLine;
+    return indexes;
 }
 
 void ObjFaceConverter::Convert(std::vector<std::string> splittedLine)
@@ -31,12 +37,12 @@ void ObjFaceConverter::Convert(std::vector<std::string> splittedLine)
 
     for (int i = 1; i <= 3; i++)
     {
-        std::vector<int> vertexInfo = splitLine(splittedLine.at(i), '/');
+        std::vector<int> indexesForVertex = GetIndexesForVertex(splittedLine.at(i));
 
         for (int j = 0; j < 3; j++)
         {
-            //-1 bo to indexy
-            data[index++] = vertexInfo.at(j) - 1;
+            // -1 because these are indexes
+            data[index++] = indexesForVertex.at(j) - 1;
         }
     }
 }
