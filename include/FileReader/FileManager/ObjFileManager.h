@@ -3,9 +3,15 @@
 #include <iostream>
 #include <array>
 
+#include "common/Vertex.h"
+
 #include "FileManager.h"
+
 #include "FileReader/Converters/Converter.h"
-#include "Renderer/Vertex.h" //TODO: wspólny typ danych
+#include "FileReader/Converters/GlmVec2Converter.h"
+#include "FileReader/Converters/GlmVec3Converter.h"
+#include "FileReader/Converters/StringConverter.h"
+#include "FileReader/Converters/ObjFaceConverter.h"
 
 class ObjFileManager: public FileManager
 {

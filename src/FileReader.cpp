@@ -59,7 +59,7 @@ void FileReader::ReadFile(std::string path)
     manager->Init();
 
     std::ifstream file;
-    
+
     file.open(path);
 
     if (file.is_open())
@@ -79,7 +79,7 @@ void FileReader::ReadFile(std::string path)
 
                 std::string token = splittedLine.at(0);
 
-                if (token != "#") // TODO: replace with token not in manager->ignoredTokens
+                if (token != "#") // TODO: replace with token not in manager->ignoredTokens ?
                 {
                     if (token != prevToken)
                         converter = manager->GetConverterByToken(token);

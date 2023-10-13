@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Renderer/VBO.h"
-#include "Vertex.h"
+#include "common/Vertex.h"
 
 class VAO
 {

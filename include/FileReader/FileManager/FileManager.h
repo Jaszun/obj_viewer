@@ -4,7 +4,7 @@
 #include <vector>
 #include <algorithm>
 
-#include "FileReader/Converters/index.h"
+#include "FileReader/Converters/Converter.h"
 
 class FileManager
 {

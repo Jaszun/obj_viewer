@@ -1,5 +1,0 @@
-#include "Converter.h"
-#include "GlmVec2Converter.h"
-#include "GlmVec3Converter.h"
-#include "ObjFaceConverter.h"
-#include "StringConverter.h"

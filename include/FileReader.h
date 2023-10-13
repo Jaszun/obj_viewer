@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "FileReader/Converters/index.h"
+#include "FileReader/Converters/Converter.h"
 #include "FileReader/FileManager/index.h"
 
 class FileReader
