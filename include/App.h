@@ -7,12 +7,14 @@
 
 #include "Renderer.h"
 #include "InputManager.h"
+#include "FileReader.h"
 
 class App
 {
 private:
     Renderer renderer = nullptr; // <- to be changed;
     InputManager inputManager = nullptr;
+    FileReader fileReader;
 
     std::string appName;
 

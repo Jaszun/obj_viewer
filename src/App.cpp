@@ -31,6 +31,8 @@ void App::Init()
         inputManager = InputManager(windowHandle);
         inputManager.Init();
 
+        fileReader = FileReader();
+
         isRunning = true;
     }
 
@@ -77,17 +79,6 @@ void App::FetchInput()
         std::cout << inputManager.dragCurrentPoint.xOffset << " " << inputManager.dragCurrentPoint.yOffset << "\n";
     }
 
-    if (inputManager.isFileDropped)
-    {
-        std::cout << "Someone's just dropped a file(s)\n";
-        std::cout << "Num of files: " << inputManager.droppedFiles.count << ", Paths:\n";
-
-        for (int i = 0; i < inputManager.droppedFiles.count; i++)
-        {
-            std::cout << i + 1 << ". " << inputManager.droppedFiles.paths[i] << "\n";
-        }
-    }
-
     if (inputManager.isWindowResized)
     {
         width = inputManager.window.newWidth;
@@ -102,7 +93,18 @@ void App::FetchInput()
 
 void App::Update()
 {
-    // std::cout << "Updating..." << '\n';
+    if (inputManager.isFileDropped)
+    {
+        for (int i = 0; i < inputManager.droppedFiles.count; i++)
+        {
+            fileReader.ReadFile(inputManager.droppedFiles.paths[i]);
+
+            if (fileReader.fileRead)
+            {
+                //TODO: Handle received data from fileReader.fileManager
+            }
+        }
+    }
 }
 
 void App::Render()
