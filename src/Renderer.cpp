@@ -86,10 +86,20 @@ void Renderer::Init()
   cubeMeshes.emplace_back(std::make_shared<Mesh>(std::move(vericesForCube)));
 
   // multiple meshes test
-  objects.emplace_back(std::make_shared<Object>(std::move(triangleMeshes)));
+  // objects.emplace_back(std::make_shared<Object>(std::move(triangleMeshes)));
 
   // default cube
   // objects.emplace_back(std::make_shared<Object>(std::move(cubeMeshes)));
+
+  // temp
+  FileReader reader = FileReader();
+
+  reader.ReadFile("../../res/assets/untitled.obj");
+
+  if (reader.fileRead)
+  {
+    objects.emplace_back(((ObjFileManager*)reader.fileManager)->object);
+  }
 }
 
 void Renderer::Resize(const int &width, const int &height)

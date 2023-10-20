@@ -87,7 +87,7 @@ void FileReader::ReadFile(std::string path)
                     if (converter)
                     {
                         converter->Convert(splittedLine);
-                        fileManager->SaveData(token, converter);
+                        fileManager->SaveData(token, converter, splittedLine);
                     }
                 }
 
@@ -101,6 +101,9 @@ void FileReader::ReadFile(std::string path)
 
         file.close();
     }
+
+    else
+        return;
 
     fileManager->InterpretData();
 

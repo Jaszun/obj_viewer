@@ -18,6 +18,8 @@
 #include "Renderer/Shader.h"
 #include "Renderer/Object.h"
 
+#include "FileReader.h"
+
 class Renderer
 {
 private:

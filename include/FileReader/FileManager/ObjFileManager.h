@@ -13,6 +13,8 @@
 #include "FileReader/Converter/StringConverter.h"
 #include "FileReader/Converter/ObjFaceConverter.h"
 
+#include "Renderer/Object.h"
+
 class ObjFileManager: public FileManager
 {
 private:
@@ -22,18 +24,22 @@ private:
 
     std::vector<std::array<int, 9>> faces;
 
-    std::string meshName;
-    std::string mtlName;
-public:
-    std::string commentToken = "#";
-
     std::vector<Vertex> vertices;
+
+    std::vector<std::shared_ptr<Mesh>> meshes;
+
+    std::string currentMesh = "";
+public:
+    const std::string commentToken = "#";
+
+    std::shared_ptr<Object> object;
 
     ObjFileManager();
 
     void Init();
-    void SaveData(std::string token, Converter* converter);
+    void SaveData(std::string token, Converter* converter, std::vector<std::string> splittedLine);
     void InterpretData();
+    void addVerticesTemp(std::vector<std::string> splittedLine);
 
     Converter* GetConverterByToken(std::string token);
 };

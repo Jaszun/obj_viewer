@@ -19,6 +19,6 @@ public:
     Converter* GetConverterByToken(std::string token);
 
     virtual void Init() = 0;
-    virtual void SaveData(std::string token, Converter* converter) = 0;
+    virtual void SaveData(std::string token, Converter* converter, std::vector<std::string> splittedLine) = 0;
     virtual void InterpretData() = 0;
 };
