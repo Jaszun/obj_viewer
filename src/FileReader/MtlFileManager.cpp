@@ -1,4 +1,4 @@
-#include "FileReader/FileManager/MtlFileManager.h"
+#include "FileReader/MtlFileManager.h"
 
 MtlFileManager::MtlFileManager() : FileManager()
 {
@@ -18,7 +18,7 @@ void ObjFileManager::SaveData(std::string token, Converter* converter)
 
 }
 
-void ObjFileManager::InterpretData()
+void ObjFileManager::OnFileLoaded()
 {
 
 }

@@ -1,4 +1,4 @@
-#include "FileReader/FileManager/ObjFileManager.h"
+#include "FileReader/ObjFileManager.h"
 
 ObjFileManager::ObjFileManager() : FileManager()
 {
@@ -6,45 +6,22 @@ ObjFileManager::ObjFileManager() : FileManager()
 
 void ObjFileManager::Init()
 {
-    converters = 
-    {
-        new GlmVec3Converter({"v", "vn"}),
-        new GlmVec2Converter({"vt"}),
-        new ObjFaceConverter({"f"}),
-        // temp - depends on what we need
-        new StringConverter({"usemtl"})
-        // new IntConverter("s"),
-        // new IntVectorConverter("l"),
-    };
 }
 
-void ObjFileManager::SaveData(std::string token, Converter* converter, std::vector<std::string> splittedLine)
+void ObjFileManager::HandleData(std::string token, std::vector<std::string> splittedLine)
 {
     if (token == "v")
-        positions.push_back(((GlmVec3Converter*) converter)->data);
+        positions.push_back(GetGlmVec3(splittedLine));
     else if (token == "vn")
-        normals.push_back(((GlmVec3Converter*) converter)->data);
+        normals.push_back(GetGlmVec3(splittedLine));
     else if (token == "vt")
-        uv.push_back(((GlmVec2Converter*) converter)->data);
+        uv.push_back(GetGlmVec2(splittedLine));
     else if (token == "f")
-    {
-        addVerticesTemp(splittedLine);
-        // faces.push_back(((ObjFaceConverter*) converter)->data);
-    }
-    // temp
-    //
-    // else if (token == "vp")
-    //     uv.push_back(((DoubleVectorConverter*) converter)->data);
-    // else if (token == "mtllib")
-    //     mtllib = ((StringConverter*) converter)->data;
-    // else if (token == "o")
-    //     meshName = ((StringConverter*) converter)->data;
+        LoadVerticesFromFace(splittedLine);
     else if (token == "usemtl")
     {
         if (currentMesh == "")
-        {
             currentMesh = splittedLine.at(1);
-        }
 
         else
         {
@@ -54,13 +31,19 @@ void ObjFileManager::SaveData(std::string token, Converter* converter, std::vect
             std::cout << "Mesh " + currentMesh + " loaded!\n";
         }
     }
+    // else if (token == "vp")
+    //     uv.push_back(((DoubleVectorConverter*) converter)->data);
+    // else if (token == "mtllib")
+    //     mtllib = ((StringConverter*) converter)->data;
+    // else if (token == "o")
+    //     meshName = ((StringConverter*) converter)->data;
     // else if (token == "s")
     //     smoothShading = ((IntConverter*) converter)->data;
     // else if (token == "l")
     //     lines.push_back(((IntVectorConverter*) converter)->data);
 }
 
-void ObjFileManager::InterpretData()
+void ObjFileManager::OnFileLoaded()
 {
     meshes.emplace_back(std::make_shared<Mesh>(std::move(vertices)));
     vertices.clear();
@@ -69,6 +52,8 @@ void ObjFileManager::InterpretData()
 
     object = std::make_shared<Object>(std::move(meshes));
 }
+
+// data mamaging functions
 
 std::vector<int> GetIndexesForVertex(std::string line)
 {
@@ -95,7 +80,26 @@ std::vector<int> GetIndexesForVertex(std::string line)
     return indexes;
 }
 
-void ObjFileManager::addVerticesTemp(std::vector<std::string> splittedLine)
+glm::vec2 ObjFileManager::GetGlmVec2(std::vector<std::string> splittedLine)
+{
+    return glm::vec2
+        (
+            std::stof(splittedLine.at(1)),
+            std::stof(splittedLine.at(2))
+        );
+}
+
+glm::vec3 ObjFileManager::GetGlmVec3(std::vector<std::string> splittedLine)
+{
+    return glm::vec3
+        (
+            std::stof(splittedLine.at(1)),
+            std::stof(splittedLine.at(2)),
+            std::stof(splittedLine.at(3))
+        );
+}
+
+void ObjFileManager::LoadVerticesFromFace(std::vector<std::string> splittedLine)
 {
     int index = 0;
 

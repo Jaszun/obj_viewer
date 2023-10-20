@@ -64,9 +64,6 @@ void FileReader::ReadFile(std::string path)
 
     if (file.is_open())
     {
-        Converter* converter;
-
-        std::string prevToken = "";
         std::string line;
 
         std::cout << "Loading file...\n";
@@ -81,23 +78,12 @@ void FileReader::ReadFile(std::string path)
 
                 if (token != fileManager->commentToken)
                 {
-                    if (token != prevToken)
-                        converter = fileManager->GetConverterByToken(token);
-
-                    if (converter)
-                    {
-                        converter->Convert(splittedLine);
-                        fileManager->SaveData(token, converter, splittedLine);
-                    }
+                    fileManager->HandleData(token, splittedLine);
                 }
-
-                prevToken = token;
             }
         }
 
         std::cout << "Finished loading!\n";
-        
-        delete converter;
 
         file.close();
     }
@@ -105,7 +91,7 @@ void FileReader::ReadFile(std::string path)
     else
         return;
 
-    fileManager->InterpretData();
+    fileManager->OnFileLoaded();
 
     fileRead = true;
 }

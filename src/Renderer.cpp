@@ -21,69 +21,69 @@ void Renderer::Init()
   projection = glm::perspective(FOV, (float)width / (float)height, 0.1f, 100.0f);
 
   // object setup
-  std::vector<std::shared_ptr<Mesh>>
-      triangleMeshes;
+  // std::vector<std::shared_ptr<Mesh>>
+  //     triangleMeshes;
 
-  std::vector<Vertex> vertices{
-      {glm::vec3(-0.8, -0.5, 0.2), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(-0.2, -0.5, 0.2), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(-0.5, 0.1, 0.2), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)}};
+  // std::vector<Vertex> vertices{
+  //     {glm::vec3(-0.8, -0.5, 0.2), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(-0.2, -0.5, 0.2), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(-0.5, 0.1, 0.2), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)}};
 
-  std::vector<Vertex> vertices2{
-      {glm::vec3(0.2, -0.5, 0.2), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(0.8, -0.5, 0.2), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(0.5, 0.1, 0.2), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)}};
+  // std::vector<Vertex> vertices2{
+  //     {glm::vec3(0.2, -0.5, 0.2), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(0.8, -0.5, 0.2), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(0.5, 0.1, 0.2), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)}};
 
-  std::vector<Vertex> vertices3{
-      {glm::vec3(-0.3, -0.5, -0.2), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(0.3, -0.5, -0.2), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(0.0, 0.1, -0.2), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)}};
+  // std::vector<Vertex> vertices3{
+  //     {glm::vec3(-0.3, -0.5, -0.2), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(0.3, -0.5, -0.2), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(0.0, 0.1, -0.2), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)}};
 
-  triangleMeshes.emplace_back(std::make_shared<Mesh>(std::move(vertices)));
-  triangleMeshes.emplace_back(std::make_shared<Mesh>(std::move(vertices3)));
-  triangleMeshes.emplace_back(std::make_shared<Mesh>(std::move(vertices2)));
+  // triangleMeshes.emplace_back(std::make_shared<Mesh>(std::move(vertices)));
+  // triangleMeshes.emplace_back(std::make_shared<Mesh>(std::move(vertices3)));
+  // triangleMeshes.emplace_back(std::make_shared<Mesh>(std::move(vertices2)));
 
-  std::vector<std::shared_ptr<Mesh>> cubeMeshes;
+  // std::vector<std::shared_ptr<Mesh>> cubeMeshes;
 
-  std::vector<Vertex> vericesForCube{
-      {glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(-1.0f, -1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(1.0f, 1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(-1.0f, 1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(1.0f, -1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(1.0f, -1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(1.0f, 1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(1.0f, -1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(-1.0f, 1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(1.0f, -1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(-1.0f, -1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(-1.0f, -1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(1.0f, -1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(1.0f, -1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(1.0f, 1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(1.0f, -1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(1.0f, -1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(1.0f, 1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(-1.0f, 1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(-1.0f, 1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
-      {glm::vec3(1.0f, -1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)}};
+  // std::vector<Vertex> vericesForCube{
+  //     {glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(-1.0f, -1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(1.0f, 1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(-1.0f, 1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(1.0f, -1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(1.0f, -1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(1.0f, 1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(1.0f, -1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(-1.0f, 1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(1.0f, -1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(-1.0f, -1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(-1.0f, -1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(1.0f, -1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(1.0f, -1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(1.0f, 1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(1.0f, -1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(1.0f, -1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(1.0f, 1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(-1.0f, 1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(-1.0f, 1.0f, -1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)},
+  //     {glm::vec3(1.0f, -1.0f, 1.0f), glm::vec3(.0, .0, .0), glm::vec2(.0, .0)}};
 
-  cubeMeshes.emplace_back(std::make_shared<Mesh>(std::move(vericesForCube)));
+  // cubeMeshes.emplace_back(std::make_shared<Mesh>(std::move(vericesForCube)));
 
   // multiple meshes test
   // objects.emplace_back(std::make_shared<Object>(std::move(triangleMeshes)));
