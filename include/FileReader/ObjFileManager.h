@@ -23,6 +23,7 @@ private:
     glm::vec2 GetGlmVec2(std::vector<std::string> splittedLine);
     glm::vec3 GetGlmVec3(std::vector<std::string> splittedLine);
     
+    std::array<int, 9> GetIndexesForVertex(std::string line);
     void LoadVerticesFromFace(std::vector<std::string> splittedLine);
 
     void SaveMesh();

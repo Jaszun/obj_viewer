@@ -55,31 +55,6 @@ void ObjFileManager::SaveMesh()
 
 // data mamaging functions
 
-std::vector<int> GetIndexesForVertex(std::string line)
-{
-    std::vector<int> indexes;
-
-    std::string temp = "";
-
-    char separator = '/';
-   
-    for (int i = 0; i < line.length(); i++)
-    {
-        if (line[i] != separator)
-            temp += line[i];
-        
-        else
-        {
-            indexes.push_back(std::stoi(temp));
-            temp = "";
-        }
-    }
-
-    indexes.push_back(std::stoi(temp));
-
-    return indexes;
-}
-
 glm::vec2 ObjFileManager::GetGlmVec2(std::vector<std::string> splittedLine)
 {
     return glm::vec2
@@ -99,13 +74,37 @@ glm::vec3 ObjFileManager::GetGlmVec3(std::vector<std::string> splittedLine)
         );
 }
 
-void ObjFileManager::LoadVerticesFromFace(std::vector<std::string> splittedLine)
+std::array<int, 9> ObjFileManager::GetIndexesForVertex(std::string line)
 {
     int index = 0;
 
+    std::array<int, 9> indexes;
+
+    std::string temp = "";
+    char separator = '/';
+   
+    for (int i = 0; i < line.length(); i++)
+    {
+        if (line[i] != separator)
+            temp += line[i];
+        
+        else
+        {
+            indexes[index++] = std::stoi(temp);
+            temp = "";
+        }
+    }
+
+    indexes[index] = std::stoi(temp);
+
+    return indexes;
+}
+
+void ObjFileManager::LoadVerticesFromFace(std::vector<std::string> splittedLine)
+{
     for (int i = 1; i <= 3; i++)
     {
-        std::vector<int> indexesForVertex = GetIndexesForVertex(splittedLine.at(i));
+        std::array<int, 9> indexesForVertex = GetIndexesForVertex(splittedLine.at(i));
 
         vertices.push_back(
         {

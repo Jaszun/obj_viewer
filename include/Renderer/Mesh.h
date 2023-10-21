@@ -4,7 +4,7 @@
 #include <memory>
 #include <vector>
 
-#include "common/Vertex.h"
+#include "shared/Vertex.h"
 #include "VAO.h"
 #include "VBO.h"
 #include "Material.h"

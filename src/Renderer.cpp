@@ -94,7 +94,7 @@ void Renderer::Init()
   // temp
   FileReader reader = FileReader();
 
-  reader.ReadFile("../../res/assets/untitled.obj");
+  reader.ReadFile("../../res/assets/monke.obj");
 
   if (reader.fileRead)
   {

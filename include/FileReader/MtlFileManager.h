@@ -8,7 +8,7 @@
 
 #include "FileManager.h"
 
-#include "common/MaterialLibrary.h"
+#include "shared/MaterialLibrary.h"
 
 class MtlFileManager: public FileManager
 {
