@@ -42,8 +42,7 @@ void ObjFileManager::OnFileLoaded()
     SaveMesh();
 
     object = std::make_shared<Object>(std::move(meshes));
-
-    std::cout << "Material lib: " << materialLibraryName << "\n";
+    object->materialLibraryName = materialLibraryName;
 }
 
 void ObjFileManager::SaveMesh()

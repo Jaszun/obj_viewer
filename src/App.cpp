@@ -101,13 +101,11 @@ void App::Update()
 
             if (fileReader.fileRead)
             {
-                // temp
-                
                 if (fileReader.fileExtension == "obj")
                 {
                     ObjFileManager* manager = (ObjFileManager*) fileReader.fileManager;
 
-                    std::cout << manager->materialLibraryName << "\n";
+                    std::cout << manager->object->materialLibraryName << "\n";
                 }
                 else if (fileReader.fileExtension == "mtl")
                 {

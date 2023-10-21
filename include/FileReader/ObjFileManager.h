@@ -15,6 +15,7 @@ private:
     std::vector<glm::vec2> uv;
 
     std::string currentMeshName = "";
+    std::string materialLibraryName = "";
 
     std::vector<Vertex> vertices;
     std::vector<std::shared_ptr<Mesh>> meshes;
@@ -29,7 +30,6 @@ public:
     const std::string commentToken = "#";
 
     std::shared_ptr<Object> object;
-    std::string materialLibraryName;
 
     ObjFileManager(std::string fileName);
 
