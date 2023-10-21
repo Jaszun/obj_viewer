@@ -7,7 +7,8 @@
 #include <glm/vec3.hpp>
 
 #include "FileManager.h"
-#include "Renderer/Material.h"
+
+#include "common/MaterialLibrary.h"
 
 class MtlFileManager: public FileManager
 {
@@ -21,9 +22,9 @@ private:
     void SaveMaterial();
 public:
     const std::string commentToken = "#";
-    std::vector<std::shared_ptr<Material>> materials;
+    MaterialLibrary materialLibrary;
 
-    MtlFileManager();
+    MtlFileManager(std::string fileName);
 
     void Init();
     void HandleData(std::string token, std::vector<std::string> splittedLine);

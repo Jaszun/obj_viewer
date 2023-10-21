@@ -1,7 +1,8 @@
 #include "FileReader/MtlFileManager.h"
 
-MtlFileManager::MtlFileManager() : FileManager()
+MtlFileManager::MtlFileManager(std::string fileName) : FileManager(fileName)
 {
+    materialLibrary.name = fileName;
 }
 
 void MtlFileManager::Init()
@@ -43,7 +44,7 @@ void MtlFileManager::OnFileLoaded()
 
 void MtlFileManager::SaveMaterial()
 {
-    materials.emplace_back(currentMaterial);
+    materialLibrary.materials.emplace_back(currentMaterial);
 
     std::cout << "Material: " << currentMaterial->name << " saved!\n";
 }

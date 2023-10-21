@@ -33,12 +33,15 @@ std::vector<std::string> FileReader::SplitLine(std::string line, char separator)
 
 FileManager* FileReader::GetFileManager(std::string path)
 {
+    char separator = (path.find('/') != std::string::npos) ? '/' : '\\';
+
+    std::string fileName = path.substr(path.find_last_of(separator) + 1);
     fileExtension = path.substr(path.find_last_of('.') + 1);
 
     if (fileExtension == "obj")
-        return new ObjFileManager();
+        return new ObjFileManager(fileName);
     else if (fileExtension == "mtl")
-        return new MtlFileManager();
+        return new MtlFileManager(fileName);
     
     return nullptr;
 }

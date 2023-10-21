@@ -1,6 +1,6 @@
 #include "FileReader/ObjFileManager.h"
 
-ObjFileManager::ObjFileManager() : FileManager()
+ObjFileManager::ObjFileManager(std::string fileName) : FileManager(fileName)
 {
 }
 
@@ -20,15 +20,15 @@ void ObjFileManager::HandleData(std::string token, std::vector<std::string> spli
         LoadVerticesFromFace(splittedLine);
     else if (token == "usemtl")
     {
-        if (currentMesh != "")
+        if (currentMeshName != "")
             SaveMesh();
         
-        currentMesh = splittedLine.at(1);
+        currentMeshName = splittedLine.at(1);
     }
+    else if (token == "mtllib")
+        materialLibraryName = splittedLine.at(1);
     // else if (token == "vp")
     //     uv.push_back(((DoubleVectorConverter*) converter)->data);
-    // else if (token == "mtllib")
-    //     mtllib = ((StringConverter*) converter)->data;
     // else if (token == "o")
     //     meshName = ((StringConverter*) converter)->data;
     // else if (token == "s")
@@ -42,14 +42,16 @@ void ObjFileManager::OnFileLoaded()
     SaveMesh();
 
     object = std::make_shared<Object>(std::move(meshes));
+
+    std::cout << "Material lib: " << materialLibraryName << "\n";
 }
 
 void ObjFileManager::SaveMesh()
 {
-    meshes.emplace_back(std::make_shared<Mesh>(std::move(vertices), std::move(currentMesh)));
+    meshes.emplace_back(std::make_shared<Mesh>(std::move(vertices), std::move(currentMeshName)));
     vertices.clear();
 
-    std::cout << "Mesh " + currentMesh + " loaded!\n";
+    std::cout << "Mesh " + currentMeshName + " loaded!\n";
 }
 
 // data mamaging functions

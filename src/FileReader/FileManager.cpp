@@ -1,6 +1,7 @@
 #include "FileReader/FileManager.h"
 
-FileManager::FileManager()
+FileManager::FileManager(std::string fileName)
+    :fileName(fileName)
 {
 }
 

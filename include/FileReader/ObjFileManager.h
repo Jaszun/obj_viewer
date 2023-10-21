@@ -14,7 +14,7 @@ private:
     std::vector<glm::vec3> normals;
     std::vector<glm::vec2> uv;
 
-    std::string currentMesh = "";
+    std::string currentMeshName = "";
 
     std::vector<Vertex> vertices;
     std::vector<std::shared_ptr<Mesh>> meshes;
@@ -29,8 +29,9 @@ public:
     const std::string commentToken = "#";
 
     std::shared_ptr<Object> object;
+    std::string materialLibraryName;
 
-    ObjFileManager();
+    ObjFileManager(std::string fileName);
 
     void Init();
     void HandleData(std::string token, std::vector<std::string> splittedLine);
