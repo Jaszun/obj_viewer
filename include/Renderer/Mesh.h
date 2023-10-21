@@ -7,6 +7,7 @@
 #include "common/Vertex.h"
 #include "VAO.h"
 #include "VBO.h"
+#include "Material.h"
 /*
 TODO
 [] store verticies
@@ -19,12 +20,14 @@ TODO
 class Mesh
 {
 private:
+    std::unique_ptr<Material> material;
     std::vector<Vertex> vertices;
     std::unique_ptr<VAO> vao;
     std::unique_ptr<VBO> vbo;
 
 public:
-    Mesh(std::vector<Vertex> &&vertices);
+    Mesh(std::vector<Vertex> &&vertices, std::string &&materialName);
     ~Mesh();
+
     void Draw();
 };

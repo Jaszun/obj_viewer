@@ -20,16 +20,10 @@ void ObjFileManager::HandleData(std::string token, std::vector<std::string> spli
         LoadVerticesFromFace(splittedLine);
     else if (token == "usemtl")
     {
-        if (currentMesh == "")
-            currentMesh = splittedLine.at(1);
-
-        else
-        {
-            meshes.emplace_back(std::make_shared<Mesh>(std::move(vertices)));
-            vertices.clear();
-
-            std::cout << "Mesh " + currentMesh + " loaded!\n";
-        }
+        if (currentMesh != "")
+            SaveMesh();
+        
+        currentMesh = splittedLine.at(1);
     }
     // else if (token == "vp")
     //     uv.push_back(((DoubleVectorConverter*) converter)->data);
@@ -45,12 +39,17 @@ void ObjFileManager::HandleData(std::string token, std::vector<std::string> spli
 
 void ObjFileManager::OnFileLoaded()
 {
-    meshes.emplace_back(std::make_shared<Mesh>(std::move(vertices)));
+    SaveMesh();
+
+    object = std::make_shared<Object>(std::move(meshes));
+}
+
+void ObjFileManager::SaveMesh()
+{
+    meshes.emplace_back(std::make_shared<Mesh>(std::move(vertices), std::move(currentMesh)));
     vertices.clear();
 
     std::cout << "Mesh " + currentMesh + " loaded!\n";
-
-    object = std::make_shared<Object>(std::move(meshes));
 }
 
 // data mamaging functions

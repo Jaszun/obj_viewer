@@ -30,9 +30,11 @@ add_executable(
     src/FileReader.cpp
     src/FileReader/FileManager.cpp
     src/FileReader/ObjFileManager.cpp
+    src/FileReader/MtlFileManager.cpp
     src/Renderer/Shader.cpp
     src/Renderer/Object.cpp
     src/Renderer/Mesh.cpp
+    src/Renderer/Material.cpp
     src/Renderer/VBO.cpp
     src/Renderer/VAO.cpp
 )

@@ -17,6 +17,7 @@ public:
     FileManager* fileManager;
 
     bool fileRead = false;
+    std::string fileExtension = "";
 
     FileReader();
     ~FileReader();

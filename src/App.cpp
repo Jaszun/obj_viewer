@@ -102,6 +102,16 @@ void App::Update()
             if (fileReader.fileRead)
             {
                 //TODO: Handle received data from fileReader.fileManager
+                //
+                // like:
+                // if (fileReader.fileExtension == "obj")
+                // {
+                //     ((ObjFileManager*) fileReader.fileManager)->object;
+                // }
+                // else if (fileReader.fileExtension == "mtl")
+                // {
+                //     ...
+                // }
             }
         }
     }

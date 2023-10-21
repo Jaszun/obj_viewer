@@ -33,13 +33,12 @@ std::vector<std::string> FileReader::SplitLine(std::string line, char separator)
 
 FileManager* FileReader::GetFileManager(std::string path)
 {
-    std::string fileExtension = path.substr(path.find_last_of('.') + 1);
+    fileExtension = path.substr(path.find_last_of('.') + 1);
 
     if (fileExtension == "obj")
         return new ObjFileManager();
-    // if (fileExtension == "mtl")
-    //     return new MtlFileManager();
-    // ...
+    else if (fileExtension == "mtl")
+        return new MtlFileManager();
     
     return nullptr;
 }
@@ -59,37 +58,36 @@ void FileReader::ReadFile(std::string path)
     fileManager->Init();
 
     std::ifstream file;
-
     file.open(path);
 
-    if (file.is_open())
+    if (!file.is_open())
     {
-        std::string line;
+        std::cout << "Couldn't open file\n";
+        return;
+    }
+        
+    std::string line;
 
-        std::cout << "Loading file...\n";
+    std::cout << "Loading file...\n";
 
-        while (std::getline(file, line))
+    while (std::getline(file, line))
+    {
+        if (line.length() > 0)
         {
-            if (line.length() > 0)
+            std::vector<std::string> splittedLine = SplitLine(line, ' ');
+
+            std::string token = splittedLine.at(0);
+
+            if (token != fileManager->commentToken)
             {
-                std::vector<std::string> splittedLine = SplitLine(line, ' ');
-
-                std::string token = splittedLine.at(0);
-
-                if (token != fileManager->commentToken)
-                {
-                    fileManager->HandleData(token, splittedLine);
-                }
+                fileManager->HandleData(token, splittedLine);
             }
         }
-
-        std::cout << "Finished loading!\n";
-
-        file.close();
     }
 
-    else
-        return;
+    std::cout << "Finished loading!\n";
+
+    file.close();
 
     fileManager->OnFileLoaded();
 

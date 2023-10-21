@@ -1,8 +1,11 @@
 #include "Renderer/Mesh.h"
 
-Mesh::Mesh(std::vector<Vertex> &&vertices)
+Mesh::Mesh(std::vector<Vertex> &&vertices, std::string &&materialName)
     : vertices(vertices)
 {
+    material = std::make_unique<Material>();
+    material->name = materialName;
+
     vao = std::make_unique<VAO>();
     vbo = std::make_unique<VBO>(vertices.data(), std::size(vertices));
     vao->Bind();
