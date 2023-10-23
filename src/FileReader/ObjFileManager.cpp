@@ -1,6 +1,6 @@
 #include "FileReader/ObjFileManager.h"
 
-ObjFileManager::ObjFileManager(std::string fileName) : FileManager(fileName)
+ObjFileManager::ObjFileManager(std::string fileName, std::string dirPath) : FileManager(fileName, dirPath)
 {
 }
 

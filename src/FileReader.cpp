@@ -36,12 +36,13 @@ FileManager* FileReader::GetFileManager(std::string path)
     char separator = (path.find('/') != std::string::npos) ? '/' : '\\';
 
     std::string fileName = path.substr(path.find_last_of(separator) + 1);
+    std::string dirPath = path.substr(0, path.find(fileName));
     fileExtension = path.substr(path.find_last_of('.') + 1);
 
     if (fileExtension == "obj")
-        return new ObjFileManager(fileName);
+        return new ObjFileManager(fileName, dirPath);
     else if (fileExtension == "mtl")
-        return new MtlFileManager(fileName);
+        return new MtlFileManager(fileName, dirPath);
     
     return nullptr;
 }

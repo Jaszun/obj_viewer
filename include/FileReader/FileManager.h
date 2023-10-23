@@ -9,8 +9,9 @@ class FileManager
 public:
     std::string commentToken;
     std::string fileName;
+    std::string dirPath;
 
-    FileManager(std::string fileName);
+    FileManager(std::string fileName, std::string dirPath);
     ~FileManager();
 
     virtual void Init() = 0;

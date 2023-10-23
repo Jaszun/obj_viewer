@@ -32,7 +32,7 @@ public:
 
     std::shared_ptr<Object> object;
 
-    ObjFileManager(std::string fileName);
+    ObjFileManager(std::string fileName, std::string dirPath);
 
     void Init();
     void HandleData(std::string token, std::vector<std::string> splittedLine);
