@@ -22,6 +22,8 @@ private:
     glm::mat4 model{1.0f};
 
 public:
+    std::string materialLibraryName;
+    
     Object(std::vector<std::shared_ptr<Mesh>> &&meshes);
     ~Object();
     void Draw(std::shared_ptr<Shader> &shader);

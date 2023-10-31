@@ -101,7 +101,23 @@ void App::Update()
 
             if (fileReader.fileRead)
             {
-                //TODO: Handle received data from fileReader.fileManager
+                if (fileReader.fileExtension == "obj")
+                {
+                    ObjFileManager* manager = (ObjFileManager*) fileReader.fileManager;
+
+                    std::cout << manager->object->materialLibraryName << "\n";
+                }
+                else if (fileReader.fileExtension == "mtl")
+                {
+                    MtlFileManager* manager = (MtlFileManager*) fileReader.fileManager;
+
+                    std::cout << manager->materialLibrary.name << "\n";
+
+                    for (int i = 0; i < manager->materialLibrary.materials.size(); i++)
+                    {
+                        std::cout << manager->materialLibrary.materials.at(i)->name << "\n";
+                    }
+                }
             }
         }
     }

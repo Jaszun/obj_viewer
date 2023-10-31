@@ -33,13 +33,16 @@ std::vector<std::string> FileReader::SplitLine(std::string line, char separator)
 
 FileManager* FileReader::GetFileManager(std::string path)
 {
-    std::string fileExtension = path.substr(path.find_last_of('.') + 1);
+    char separator = (path.find('/') != std::string::npos) ? '/' : '\\';
+
+    std::string fileName = path.substr(path.find_last_of(separator) + 1);
+    std::string dirPath = path.substr(0, path.find(fileName));
+    fileExtension = path.substr(path.find_last_of('.') + 1);
 
     if (fileExtension == "obj")
-        return new ObjFileManager();
-    // if (fileExtension == "mtl")
-    //     return new MtlFileManager();
-    // ...
+        return new ObjFileManager(fileName, dirPath);
+    else if (fileExtension == "mtl")
+        return new MtlFileManager(fileName, dirPath);
     
     return nullptr;
 }
@@ -59,50 +62,38 @@ void FileReader::ReadFile(std::string path)
     fileManager->Init();
 
     std::ifstream file;
-
     file.open(path);
 
-    if (file.is_open())
+    if (!file.is_open())
     {
-        Converter* converter;
+        std::cout << "Couldn't open file\n";
+        return;
+    }
+        
+    std::string line;
 
-        std::string prevToken = "";
-        std::string line;
+    std::cout << "Loading file...\n";
 
-        std::cout << "Loading file...\n";
-
-        while (std::getline(file, line))
+    while (std::getline(file, line))
+    {
+        if (line.length() > 0)
         {
-            if (line.length() > 0)
+            std::vector<std::string> splittedLine = SplitLine(line, ' ');
+
+            std::string token = splittedLine.at(0);
+
+            if (token != fileManager->commentToken)
             {
-                std::vector<std::string> splittedLine = SplitLine(line, ' ');
-
-                std::string token = splittedLine.at(0);
-
-                if (token != fileManager->commentToken)
-                {
-                    if (token != prevToken)
-                        converter = fileManager->GetConverterByToken(token);
-
-                    if (converter)
-                    {
-                        converter->Convert(splittedLine);
-                        fileManager->SaveData(token, converter);
-                    }
-                }
-
-                prevToken = token;
+                fileManager->HandleData(token, splittedLine);
             }
         }
-
-        std::cout << "Finished loading!\n";
-        
-        delete converter;
-
-        file.close();
     }
 
-    fileManager->InterpretData();
+    std::cout << "Finished loading!\n";
+
+    file.close();
+
+    fileManager->OnFileLoaded();
 
     fileRead = true;
 }
