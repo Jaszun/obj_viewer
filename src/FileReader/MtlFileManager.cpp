@@ -11,55 +11,76 @@ void MtlFileManager::Init()
 
 void MtlFileManager::HandleData(std::string token, std::vector<std::string> splittedLine)
 {
-    if (token == "newmtl")
+    if (tokenMap.find(token) == tokenMap.end())
+        return;
+    
+    switch(tokenMap.at(token))
     {
-        if (currentMaterial)
-            SaveMaterial();
-
-        currentMaterial = std::make_unique<Material>();
-        currentMaterial->name = splittedLine.at(1);
-    }
-    else if (token == "Ns")
-        currentMaterial->specularExponent = GetFloat(splittedLine);
-    else if (token == "Ka")
-        currentMaterial->ambient = GetGlmVec3(splittedLine);
-    else if (token == "Kd")
-        currentMaterial->diffuse = GetGlmVec3(splittedLine);
-    else if (token == "Ks")
-        currentMaterial->specular = GetGlmVec3(splittedLine);
-    else if (token == "Ke")
-        currentMaterial->emissiveCoeficient = GetGlmVec3(splittedLine);
-    else if (token == "Ni")
-        currentMaterial->opticalDensity = GetFloat(splittedLine);
-    else if (token == "d")
-        currentMaterial->dissolve = GetFloat(splittedLine);
-    else if (token == "Tr")
-        currentMaterial->dissolve = 1.0f - GetFloat(splittedLine);
-    else if (token == "illum")
-        currentMaterial->illuminationModel = GetInt(splittedLine);
-    else if (token == "Tf")
-    {
-        if (splittedLine.at(1) == "xyz")
-            currentMaterial->transmissionFilterColorCIEXYZ = GetGlmVec3ForTfXYZ(splittedLine);
-        else
-            currentMaterial->transmissionFilterColorRGB = GetGlmVec3(splittedLine);
-    }
-    else if (token == "map_Ka")
-        currentMaterial->ambientTextureMap = MakePathTo(splittedLine);
-    else if (token == "map_Kd")
-        currentMaterial->diffuseTextureMap = MakePathTo(splittedLine);
-    else if (token == "map_Ks")
-        currentMaterial->specularColorTextureMap = MakePathTo(splittedLine);
-    else if (token == "map_Ns")
-        currentMaterial->specularHighlightTextureMap = MakePathTo(splittedLine);
-    else if (token == "map_d")
-        currentMaterial->alphaTextureMap = MakePathTo(splittedLine);
-    else if (token == "map_bump" || token == "bump")
-        currentMaterial->bumpMap = MakePathTo(splittedLine);
-    else if (token == "disp")
-        currentMaterial->displacementMap = MakePathTo(splittedLine);
-    else if (token == "decal")
-        currentMaterial->stencilDecalTexture = MakePathTo(splittedLine);
+        case newmtl:
+            if (currentMaterial)
+                SaveMaterial();
+            currentMaterial = std::make_unique<Material>();
+            currentMaterial->name = splittedLine.at(1);
+            break;
+        case Ns:
+            currentMaterial->specularExponent = GetFloat(splittedLine);
+            break;
+        case Ka:
+            currentMaterial->ambient = GetGlmVec3(splittedLine);
+            break;
+        case Kd:
+            currentMaterial->diffuse = GetGlmVec3(splittedLine);
+            break;
+        case Ks:
+            currentMaterial->specular = GetGlmVec3(splittedLine);
+            break;
+        case Ke:
+            currentMaterial->emissiveCoeficient = GetGlmVec3(splittedLine);
+            break;
+        case Ni:
+            currentMaterial->opticalDensity = GetFloat(splittedLine);
+            break;
+        case d:
+            currentMaterial->dissolve = GetFloat(splittedLine);
+            break;
+        case Tr:
+            currentMaterial->dissolve = 1.0f - GetFloat(splittedLine);
+            break;
+        case illum:
+            currentMaterial->illuminationModel = GetInt(splittedLine);
+            break;
+        case Tf:
+            if (splittedLine.at(1) == "xyz")
+                currentMaterial->transmissionFilterColorCIEXYZ = GetGlmVec3ForTfXYZ(splittedLine);
+            else
+                currentMaterial->transmissionFilterColorRGB = GetGlmVec3(splittedLine);
+            break;
+        case map_Ka:
+            currentMaterial->ambientTextureMap = MakePathTo(splittedLine);
+            break;
+        case map_Kd:
+            currentMaterial->diffuseTextureMap = MakePathTo(splittedLine);
+            break;
+        case map_Ks:
+            currentMaterial->specularColorTextureMap = MakePathTo(splittedLine);
+            break;
+        case map_Ns:
+            currentMaterial->specularHighlightTextureMap = MakePathTo(splittedLine);
+            break;
+        case map_d:
+            currentMaterial->alphaTextureMap = MakePathTo(splittedLine);
+            break;
+        case map_bump:
+        case bump:
+            currentMaterial->bumpMap = MakePathTo(splittedLine);
+            break;
+        case disp:
+            currentMaterial->displacementMap = MakePathTo(splittedLine);
+            break;
+        case decal:
+            currentMaterial->stencilDecalTexture = MakePathTo(splittedLine);
+            break;
+    };
 }
 
 void MtlFileManager::OnFileLoaded()

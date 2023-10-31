@@ -3,9 +3,13 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <map>
 
 class FileManager
 {
+protected:
+    enum TokenSymbol;
+    std::map<std::string, TokenSymbol> tokenMap;
 public:
     std::string commentToken;
     std::string fileName;

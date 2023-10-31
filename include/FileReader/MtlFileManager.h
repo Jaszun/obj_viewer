@@ -13,6 +13,54 @@
 class MtlFileManager: public FileManager
 {
 private:
+    const enum TokenSymbol
+    {
+        newmtl,
+        Ns,
+        Ka,
+        Kd,
+        Ks,
+        Ke,
+        Ni,
+        d,
+        Tr,
+        illum,
+        Tf,
+        map_Ka,
+        map_Kd,
+        map_Ks,
+        map_Ns,
+        map_d,
+        map_bump,
+        bump,
+        disp,
+        decal
+    };
+
+    const std::map<std::string, TokenSymbol> tokenMap =
+    {
+        { "newmtl", newmtl },
+        { "Ns", Ns },
+        { "Ka", Ka },
+        { "Kd", Kd },
+        { "Ks", Ks },
+        { "Ke", Ke },
+        { "Ni", Ni },
+        { "d", d },
+        { "Tr", Tr },
+        { "illum", illum },
+        { "Tf", Tf },
+        { "map_Ka", map_Ka },
+        { "map_Kd", map_Kd },
+        { "map_Ks", map_Ks },
+        { "map_Ns", map_Ns },
+        { "map_d", map_d },
+        { "map_bump", map_bump },
+        { "bump", bump },
+        { "disp", disp },
+        { "decal", decal }
+    };
+
     std::shared_ptr<Material> currentMaterial = nullptr;
 
     glm::vec3 GetGlmVec3(std::vector<std::string> splittedLine);

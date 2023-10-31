@@ -10,31 +10,33 @@ void ObjFileManager::Init()
 
 void ObjFileManager::HandleData(std::string token, std::vector<std::string> splittedLine)
 {
-    if (token == "v")
-        positions.push_back(GetGlmVec3(splittedLine));
-    else if (token == "vn")
-        normals.push_back(GetGlmVec3(splittedLine));
-    else if (token == "vt")
-        uv.push_back(GetGlmVec2(splittedLine));
-    else if (token == "f")
-        LoadVerticesFromFace(splittedLine);
-    else if (token == "usemtl")
+    if (tokenMap.find(token) == tokenMap.end())
+        return;
+    
+    switch (tokenMap.at(token))
     {
-        if (currentMeshName != "")
-            SaveMesh();
+        case v:
+            positions.push_back(GetGlmVec3(splittedLine));
+            break;
+        case vn:
+            normals.push_back(GetGlmVec3(splittedLine));
+            break;
+        case vt:
+            uv.push_back(GetGlmVec2(splittedLine));
+            break;
+        case f:
+            LoadVerticesFromFace(splittedLine);
+            break;
+        case usemtl:
+            if (currentMeshName != "")
+                SaveMesh();
         
-        currentMeshName = splittedLine.at(1);
-    }
-    else if (token == "mtllib")
-        materialLibraryName = splittedLine.at(1);
-    // else if (token == "vp")
-    //     uv.push_back(((DoubleVectorConverter*) converter)->data);
-    // else if (token == "o")
-    //     meshName = ((StringConverter*) converter)->data;
-    // else if (token == "s")
-    //     smoothShading = ((IntConverter*) converter)->data;
-    // else if (token == "l")
-    //     lines.push_back(((IntVectorConverter*) converter)->data);
+            currentMeshName = splittedLine.at(1);
+            break;
+        case mtllib:
+            materialLibraryName = splittedLine.at(1);
+            break;
+    }; 
 }
 
 void ObjFileManager::OnFileLoaded()

@@ -10,6 +10,26 @@
 class ObjFileManager: public FileManager
 {
 private:
+    const enum TokenSymbol
+    {
+        v,
+        vn,
+        vt,
+        f,
+        usemtl,
+        mtllib
+    };
+
+    const std::map<std::string, TokenSymbol> tokenMap =
+    {
+        { "v", v },
+        { "vn", vn },
+        { "vt", vt },
+        { "f", f },
+        { "usemtl", usemtl },
+        { "mtllib", mtllib }
+    };
+
     std::vector<glm::vec3> positions;
     std::vector<glm::vec3> normals;
     std::vector<glm::vec2> uv;
